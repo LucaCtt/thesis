@@ -1,0 +1,128 @@
+\documentclass[a4paper,12pt]{report} % Foglio a4, font size 12, solo fronte
+\usepackage[utf8]{inputenc} % Codifica caratteri
+\usepackage[lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm]{geometry} % Bordi pagina come da formato tesi Unibs
+\usepackage{charter} % Text font
+\usepackage[titles]{tocloft} % TOC compatta
+\usepackage{blkarray, bigstrut, amssymb} % Checkmark e altri simboli
+\usepackage{graphicx, wrapfig, lipsum} % Per inserire immagini
+\usepackage{float} % Per controllare il posizionamento di immagini e tabelle
+\usepackage[bottom]{footmisc} % Footer in fondo alla pagina
+\usepackage{subcaption} % Subfigures e subcaptions
+\usepackage[section]{placeins} % Force all floats before section end
+\usepackage{mathtools}
+\usepackage{multirow} % For table cells on multiple rows
+\usepackage{tabularray}
+
+% Code blocks
+\usepackage{listings}
+\lstdefinelanguage{plain}{
+    basicstyle=\linespread{1.2}\footnotesize\ttfamily,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    captionpos=b,
+    xleftmargin=2em,
+    framexleftmargin=1.5em,
+    xrightmargin=2em,
+    framexrightmargin=1.5em
+}
+\lstdefinelanguage{json}{
+    basicstyle=\linespread{1.2}\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    captionpos=b,
+    xleftmargin=2em,
+    framexleftmargin=1.5em,
+    xrightmargin=2em,
+    framexrightmargin=1.5em
+}
+
+% Glossary
+\usepackage[acronym,nonumberlist]{glossaries}
+\makeglossaries
+
+% URL
+\usepackage[hidelinks]{hyperref} % Per inserire URL
+\usepackage{xurl} % Per spezzare URL a capo
+
+% Liste
+\usepackage{enumitem} % Per inserire liste
+\usepackage{siunitx} % Per usare \setitemize
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % itemize più compatto
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % enumerate più compatto
+
+% Captions
+\usepackage[font=small]{caption}
+\captionsetup{justification=centering}
+
+% Numerazione enumerate innestati
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+% Bibliografia
+\usepackage[backend=biber, style=apa]{biblatex} % Bibliografia su un file a parte
+\addbibresource{refs.bib} % File contentente la bibliografia
+
+% Spaziature
+\linespread{1.5} % Interlinea
+\setlength{\parindent}{0pt} % No spazio prima dei paragrafi
+\setlength{\parskip}{1em} % Spazio tra paragrafi
+\setlength{\headheight}{15pt} % Risolve warning con fancyhdr
+
+% Formato capitoli
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\Huge\bfseries}{\thechapter.}{8pt}{\Huge\bfseries}
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titlespacing*{\chapter}{0pt}{-40pt}{5pt}
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titlespacing*{\subsubsection}{0pt}{2pt}{0pt}
+
+% Intestazione pagine
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhf{}
+\fancyhead[L]{\nouppercase \leftmark}
+\fancyfoot[C]{\thepage}
+
+% Info documento
+\title{Study and Development of a Digital Twin for the Simulation of User-Created Automations in a Green Smart Home}
+\author{Luca Cotti}
+\date{October 2023}
+
+\input{acronyms}
+
+\begin{document}
+    \input{title} % Frontespizio
+    \hyphenpenalty=2000 % Meno probabile lo spezzamento delle parole a capo
+
+    \pagenumbering{Roman}
+    \tableofcontents
+    \printglossary[type=\acronymtype,title=List of Acronyms, nogroupskip]
+    \listoffigures
+    \listoftables
+
+    \cleardoublepage
+    \pagenumbering{arabic}
+    \input{1_introduction}
+    \input{2_background}
+    \input{3_datasets}
+    \input{4_theoretical_apartment}
+    \input{5_digital_twin}
+    \input{6_conclusions}
+    
+    \printbibliography[heading=bibintoc] % Bibliografia nell'indice
+    
+    \input{acknowledgments}
+\end{document}
