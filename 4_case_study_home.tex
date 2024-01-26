@@ -1,27 +1,27 @@
-\chapter{Theoretical Apartment}\label{ch:theoretical_apartment}
+\chapter{Hypothetical Home}\label{ch:hypothetical_home}
 
-This chapter introduces a theoretical apartment which acts as a starting point for the creation of the \acrshort{dt}. A number of appliances were selected to be introduced into the apartment, based on their commonality in European households and their availability in the datasets studied in Chapter~\ref{ch:analysis_of_smart_home_datasets}. The only two datasets considered are GREEND and UK-DALE, because they provide a large number of appliances, and they contain data about European households. This is significant in order to minimize the geographic variations in appliance usage patterns and to produce results that are relevant for Italian households. The chosen appliances are:
+An hypothethical home was designed as a starting point for the creation of the \acrshort{dt}. A number of appliance types were chosen to be introduced into the home, based on their commonality in European households and their availability in the GREEND and UK-DALE datasets. These two datasets were selected among the ones studied (see Chapter~\ref{ch:analysis_of_smart_home_datasets}) because they provide a large number of appliances, and they contain data about European households. This is significant in order to minimize the geographic variations in appliance usage patterns and to produce results that can be relevant for Italian households. The floor plan of the home is shown in Figure~\ref{fig:home_floor_plan}, showing the location of the following chosen appliances:
 \begin{itemize}
     \item a fridge with combined freezer;
     \item a washing machine;
     \item a dishwasher;
+    \item a radio;
     \item two TVs;
     \item a desktop computer;
     \item six lamps;
     \item a microwave;
-    \item \acrshort{ac} for the whole home;
+    \item three \acrshort{ac} splits;
     \item a boiler.
 \end{itemize}
-The planimetry of the apartment, along with the appliance types assigned to each room is shown in Figure~\ref{fig:apartment_planimetry}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{images/planimetry.png}
-    \caption{Planimetry of theoretical apartment with the location of the chosen appliance types}
-    \label{fig:apartment_planimetry}
+    \includegraphics[width=0.75\linewidth]{images/floor_plan.png}
+    \caption{Floor plan of a hypothetical case study home with the location of the chosen appliance types.}
+    \label{fig:home_floor_plan}
 \end{figure}
 
-For each appliance type, a specific appliance contained in one of the buildings in GREEND or UK-DALE was chosen as a representative sample. Table~\ref{tab:appliances_details} shows the details of the selected appliances, including the source dataset, the building, the manufacturer, and the model, when the dataset authors provided such information. The preferred sources were the buildings $3$ and $5$ of the GREEND dataset, as they had a large number of appliance data and reasonable consumption values. Other buildings in GREEND were discarded, as they either contained insufficient usage data, or the consumptions were highly unrealistic, indicating measurement errors. The appliance types that were either unavailable or unsuitable in GREEND were instead chosen from the UK-DALE dataset. Again, the buildings and appliances were chosen with the same criteria as GREEND.
+For each appliance type, a specific appliance studied in one of the buildings in GREEND or UK-DALE was chosen as a representative sample. Table~\ref{tab:appliances_details} shows the details of the selected appliances, including the source dataset, the building, the manufacturer, and the model. The preferred sources were the buildings $3$ and $5$ of the GREEND dataset, as they had a large number of appliance data and reasonable consumption values. Other buildings in GREEND were discarded, as they either contained insufficient usage data, or the consumptions were highly unrealistic, indicating measurement errors. The appliance types that were either unavailable or unsuitable in GREEND were instead chosen from the UK-DALE dataset. Again, the buildings and appliances were chosen with the same criteria as GREEND. Because no information about individual \acrshort{ac} splits was available, the whole-home \acrshort{ac} consumption was used instead. This corresponds to the three splits being controlled collectively.
 
 \begin{table}
 \centering
@@ -30,44 +30,45 @@ For each appliance type, a specific appliance contained in one of the buildings 
 \textbf{Appliance type} & \textbf{Dataset} & \textbf{Building} & \textbf{Manufacturer} & \textbf{Model} \\ \hline
 Radio             & GREEND  & 3 & Denon       & DRA-275RD   \\
 Dishwasher        & GREEND  & 5 & Whirlpool   & ADG 555 IX  \\
-Fridge w/ freezer & GREEND  & 5 & Siemens     & -           \\
+Fridge w/ freezer & GREEND  & 5 & Siemens     &             \\
 Television        & GREEND  & 5 & Samsung     & LE32C650    \\
 Microwave         & GREEND  & 3 & Whirlpool   & AMW 494/IX  \\
-Lamp              & UK-DALE & 1 & -           & -           \\
+Lamp              & UK-DALE & 1 &             &             \\
 Washing machine   & GREEND  & 3 & Zanussi     & F1215       \\
 Desktop           & GREEND  & 5 & Dimotion    & QuietONE Q2 \\
-Boiler            & UK-DALE & 4 & -           & -           \\
-AC                & UK-DALE & 5 & -           & -           \\ \hline
+Boiler            & UK-DALE & 4 &             &             \\
+AC                & UK-DALE & 5 &             &             \\ \hline
 \end{tabular}%
-\caption{Details of selected appliances}
+\caption{Details of selected appliances. Missing cells indicate that the information is not provided.}
 \label{tab:appliances_details}
 \end{table}
 
 A limitation of both the GREEND an UK-DALE datasets is that they do not record the operation mode of appliances at a given time. This information is required in order to assign a specific consumption value to the operation modes, and to estimate their duration. The other datasets introduced in Chapter~\ref{ch:analysis_of_smart_home_datasets} that do provide this type of information are either too imprecise about the start/end time or limited in the number of appliances they record.
 
-A possible solution is identifying the operation mode of appliances from the power consumption data using unsupervised learning methods. A naive approach for doing so clustering the raw energy values. This can work for simple appliances, such as lamps or televisions, but not for complex ones with \textit{operation cycles}, such as fridges or washing machines. For example, a washing machine might draw no power for a short period while the clothes soak, and then use a lot of power for a spin cycle. Both of these cycles are part of the same operation mode, but there is no way to recognize this when clustering the raw data. Methods based on raw data are also susceptible to noisy points and outliers; thus, they often lead to poor clustering results~\parencite{castangia_clustering_2023}.
+A possible solution is identifying the operation mode of appliances from the power consumption data using unsupervised learning methods. A naive approach to doing so is clustering the raw energy values: this can work for simple appliances, such as lamps or televisions, but not for complex ones with \textit{operation cycles}, such as fridges or washing machines. For example, a washing machine might draw no power for a short period while the clothes soak, and then use a lot of power for a spin cycle. Both of these cycles are part of the same operation mode, but there is no way to recognize this when clustering the raw data. Furthermore, methods based on raw data are also susceptible to noisy points and outliers; thus, they often lead to poor clustering results~\parencite{castangia_clustering_2023}.
 
 The approach used in this thesis is inspired by the one proposed by~\parencite{castangia_clustering_2023}, which uses unsupervised deep learning techniques to cluster appliance operation modes from a learned, \textit{latent state} representation of the raw data. Figure~\ref{fig:high_level_procedure} illustrates the main steps of the approach. First, a segmentation procedure is applied to the raw appliance data to identify the active states that contain the actual power signatures of the device. These signatures are then standardized and fed to a deep autoencoder model, which learns to reconstruct the operation cycles and to encode them into a latent representation. Next, a K-means clustering algorithm is applied to the latent representation, which groups the operation cycles into different programs of the device. Finally, the clusters are mapped to operation modes of the appliance. The remaining sections in this chapter describe the steps in more detail. The code for the extraction of activations is available on GitHub\footnote{\url{https://github.com/LucaCtt/appliances_data_extraction}}, while the remaining steps are executed in a Google Colab notebook\footnote{\url{https://colab.research.google.com/drive/1blnoyyP10gGdRL6b4JzaeBLg8zs2kVv9?usp=sharing}}.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/high_level_procedure.png}
-    \caption{High level procedure for identifying the operation modes of appliances}
+    \caption{High level procedure for identifying the operation modes of appliances.}
     \label{fig:high_level_procedure}
 \end{figure}
 
 \section{Extraction of Appliances Activations}
 
-An appliance activation is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of an activation for the fridge appliance is reported in Listing~\ref{lst:activation_example}. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off. To achieve this, the GREEN and UK-DALE datasets were accessed using NILMTK\footnote{\url{https://github.com/nilmtk/nilmtk}}, 
-a Python toolkit designed for comparing the performance of energy disaggregation algorithms~\parencite{batra_nilmtk_2014}. NILMTK converts the datasets to a common \texttt{hdf5} format and also provides metadata about the datasets, such as the information on the buildings and the appliance models. The appliance activations were extracted at the default frequency of the datasets using NILMTK’s \texttt{Electric.get\_activations()} method, with three arguments used for configuration:
+An appliance activation is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of an activation for the fridge in building 3 of GREEND is reported in Listing~\ref{lst:activation_example}, which highlights how the consumption values oscillate during the activation. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off.
+
+To identify the activations, the GREEN and UK-DALE datasets were accessed using NILMTK\footnote{\url{https://github.com/nilmtk/nilmtk}}, a Python toolkit designed for comparing the performance of energy disaggregation algorithms~\parencite{batra_nilmtk_2014}, which also provides data analysis functions for NILM datasets. The appliance activations were extracted at the default frequency of the datasets (every second for GREEND and every six seconds for UK-DALE) using NILMTK's \texttt{Electric.get\_activations()} method, with three arguments used for configuration:
 \begin{itemize}
     \item \texttt{on\_power\_threshold}: the minimum power consumption value (in watts) for the appliance to be considered switched on.
     \item \texttt{min\_off\_duration}: the minimum duration (in seconds) for the appliance to be below \texttt{on\_power\_threshold} to be considered turned off.
     \item \texttt{min\_on\_duration}: the minimum duration (in seconds) for the activation to be valid. This, along with \texttt{min\_off\_duration}, helps to filter out spurious power spikes. 
 \end{itemize}
-The values of these parameters were selected empirically for each appliance, by examining the number and length of the activations obtained for different parameter combinations. The sampling frequency of the activations is the default one provided by the datasets, which correspond to $1$ second for GREEND and $6$ seconds UK-DALE. The resulting activations were the clipped to a maximum threshold to eliminate noise. The maximum thresholds were chosen using the plots of the raw power consumption of each appliance, represented in Figure~\ref{fig:raw_power_consumptions}, by selecting values that remove spurious power spikes. Table~\ref{tab:activation_details} shows the parameters and the number of activations obtained for each appliance type.
+The values of these parameters were selected empirically for each appliance, by trying parameter combinations which resulted  the number and length of the activations obtained for different parameter combinations. The sampling frequency of the activations is the default one provided by the datasets, which correspond to $1$ second for GREEND and $6$ seconds UK-DALE. The resulting activations were then clipped to a maximum threshold to eliminate noise. The maximum thresholds were chosen using the plots of the raw power consumption of each appliance, represented in Figure~\ref{fig:raw_power_consumptions}, by selecting values that remove spurious power spikes. Table~\ref{tab:activation_details} shows the parameters and the number of activations obtained for each appliance type.
 
-\begin{lstlisting}[language=plain,caption={Example of an activation for the fridge},label=lst:activation_example,float,floatplacement=H]
+\begin{lstlisting}[language=plain,caption={Example of an activation for the fridge in building 3 of the GREEND dataset. The numbers are samples of the energy consumption (in watts) gathered every second.},label=lst:activation_example,float,floatplacement=H]
 0.000000 0.000000 66.601420 120.160070 63.387650 63.387650 173.715010 175.85713 130.871350 10.896457 ... 177.99924 186.56764 186.56764 188.70972 186.56764 201.56210 207.98820 201.56210 207.98820
 \end{lstlisting}
 
@@ -134,7 +135,7 @@ The values of these parameters were selected empirically for each appliance, by 
       \caption{AC}
       \label{fig:ac}
     \end{subfigure}
-\caption{Raw power consumptions of appliances}
+\caption{Raw power consumptions of appliances.}
 \label{fig:raw_power_consumptions}
 \end{figure}
 
@@ -161,13 +162,13 @@ Boiler            & 10  & 5   & 50  & 125  & 607  \\
 AC                & 120 & 120 & 300 & 1000 & 1095 \\ \hline
 \end{tabular}%
 }
-\caption{Activation details for each appliance}
+\caption{Activation details for each appliance.}
 \label{tab:activation_details}
 \end{table}
 
 \section{Autoencoder}
 
-An autoencoder is a type of neural network capable of learning to compress the inputs into a low-dimensional representation, called the \textit{latent state}, in a totally unsupervised way~\parencite{hinton_reducing_2006}. It has two components: an encoder that maps the inputs to the latent state, and a decoder that reconstructs the inputs from the latent state. The goal of the autoencoder is to learn the most relevant features of the inputs by minimizing the difference between the original and the reconstructed inputs, also known as the \textit{reconstruction error}~\parencite{hinton_reducing_2006}. The next sections describe the layers that make up the architecture used in this work, which was implemented using Tensorflow~\parencite{abadi_tensorflow_2016,developers_tensorflow_2023} and Keras~\parencite{chollet_keras_2015}.
+An autoencoder is a type of neural network capable of learning to compress the inputs into a low-dimensional representation, called the \textit{latent state}, in a totally unsupervised way~\parencite{hinton_reducing_2006}. It has two components: an encoder that maps the inputs to the latent state, and a decoder that reconstructs the inputs from the latent state. The goal of the autoencoder is to learn the most relevant features of the inputs by minimizing the difference between the original and the reconstructed inputs, also known as the \textit{reconstruction error}~\parencite{hinton_reducing_2006}. The next sections describe the layers that make up the architecture used in this work, which was implemented using Tensorflow~\parencite{abadi_tensorflow_2016,tensorflow_developers_tensorflow_2023} and Keras~\parencite{chollet_keras_2015}.
 
 \subsection{Convolutional Layers}
 
@@ -205,7 +206,7 @@ H_t = O_t \odot \tanh(C_t)
 \begin{figure}
     \centering
     \includegraphics[width=.65\linewidth]{images/lstm.png}
-    \caption[LSTM cell architecture]{LSTM cell architecture~\parencite{zhang_dive_2023}}
+    \caption[LSTM cell architecture]{LSTM cell architecture. From~\cite{zhang_dive_2023}, Subsection 10.1.1, CC-BY-SA license.}
     \label{fig:lstm_architecture}
 \end{figure}
 
@@ -218,11 +219,11 @@ Figure~\ref{fig:autoencoder_architecture} shows the autoencoder architecture use
 \begin{figure}
     \centering
     \includegraphics[width=.8\linewidth]{images/autoencoder.png}
-    \caption{Autoencoder architecture}
+    \caption{Autoencoder architecture. The colors identify layers with similar purpose.}
     \label{fig:autoencoder_architecture}
 \end{figure}
 
-The loss function used is the mean square error between the output and the original input. The network parameters are optimized by using the \acrfull{adam} algorithm with a learning rate of $0.001$ and a batch size of $32$. The training process lasts for $500$ epochs at most, but it stops sooner if the loss value does not improve for $40$ epochs, returning the best model found. The $20\%$ of training instances were held out for training validation. All training instances are zero padded or truncated to $896$ samples. The instances are then standardized using Equation~\eqref{equ:std}, where the mean $\mu_X$ and standard deviation $\sigma_X$ are computed across all the power measurements $X$. The evolution of the loss values during training are reported in Figure~\ref{fig:autoencoder_losses}.
+The loss function used is the mean square error between the output and the original input. The network parameters are optimized by using the \acrfull{adam} algorithm with a learning rate of $0.001$ and a batch size of $32$. The training process lasts for $500$ epochs at most, but it stops sooner if the loss value does not improve for $40$ epochs, returning the best model found. The $20\%$ of training instances were held out for training validation. All training instances are zero padded or truncated to $896$ samples. This number was chosen as it is close to the average length of all activations, and it is divisible by $2$ for $6$ times, which ensures that the up sampling layers in the decoder correctly reconstruct the input dimensions. The instances are then standardized using Equation~\eqref{equ:std}, where the mean $\mu_X$ and standard deviation $\sigma_X$ are computed across all the power measurements $X$. The evolution of the loss values during training are reported in Figure~\ref{fig:autoencoder_losses}.
 \begin{equation}\label{equ:std}
     X_{scaled} = \frac{X - \mu_X}{\sigma_X}
 \end{equation}
@@ -230,7 +231,7 @@ The loss function used is the mean square error between the output and the origi
 \begin{figure}
     \centering
     \includegraphics[width=.6\linewidth]{images/loss.png}
-    \caption{Evolution of training and validation losses during training}
+    \caption{Evolution of training and validation losses during training.}
     \label{fig:autoencoder_losses}
 \end{figure}
 
@@ -241,7 +242,7 @@ The complete clustering procedure for the operation modes of appliances is illus
 \begin{figure}
     \centering
     \includegraphics[width=.5\linewidth]{images/clustering.png}
-    \caption{Procedure for clustering the operation modes of appliances}
+    \caption{Procedure for clustering the operation modes of appliances.}
     \label{fig:clustering}
 \end{figure}
 
@@ -254,12 +255,16 @@ The clustering with the highest silhouette score was chosen. The search space fo
 
 \section{Identification of Operation Modes}
 
-The appliance activations and their cluster labels were used to identify the operation modes of the appliance, and to estimate their duration. The procedure used for doing this is presented in Figure~\ref{fig:identification}. First, the appliance activations are assigned to the closest cluster centroid, which represents the mean activation of each cluster. Then, the mean power consumption value of each centroid is computed and rounded to the nearest integer. These values are the potential operation modes of the appliance. Next, a selection process is performed to merge or discard operation modes that have similar or unrealistic power consumption values, based on the device manuals. The manuals also provide the names for the identified modes. This procedure may not detect all the operation modes, especially if the end-users do not use some of them frequently, or if the procedure confuses transitional states with modes. Second, the duration of each operation mode is estimated by calculating the average duration (in seconds) of the activations that belong to the same cluster. The duration values are also rounded to the nearest integer. These values are used as default durations for the operation modes. These preliminary results obtained are reported in Table~\ref{tab:preliminary_identification_results}.
+The appliance activations and their cluster labels were used to identify the operation modes of the appliance, and to estimate their duration. The procedure used for doing this is presented in Figure~\ref{fig:identification}.
+
+First, the appliance activations are assigned to the closest cluster centroid, which represents the mean activation of each cluster. Then, the mean power consumption value of each centroid is computed and rounded to the nearest integer. These values are the potential operation modes of the appliance. Next, a selection process is performed to merge or discard operation modes that have similar or unrealistic power consumption values, based on the device manuals. The manuals also provide the names for the identified modes. This procedure may not detect all the operation modes, especially if the end-users do not use some of them frequently, or if the procedure confuses transitional states with modes.
+
+Second, the duration of each operation mode is estimated by calculating the average duration (in seconds) of the activations that belong to the same cluster. The duration values are also rounded to the nearest integer. These values are used as default durations for the operation modes. These preliminary results obtained are reported in Table~\ref{tab:preliminary_identification_results}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.55\linewidth]{images/identification.png}
-    \caption{Procedure for clustering the operation modes of appliances}
+    \caption{Procedure for clustering the operation modes of appliances.}
     \label{fig:identification}
 \end{figure}
 
@@ -269,35 +274,35 @@ The appliance activations and their cluster labels were used to identify the ope
 \begin{tblr}{llcc}
 \hline
 \textbf{Appliance type} & \textbf{Mode name} & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \hline
-\SetCell[r=2]{l}{Radio}            & stand-by   & 1               & 80           \\
-                                   & on         & 37              & 4435         \\ \hline[dashed]
-\SetCell[r=4]{l}{Dishwasher}       & -          & 136             & 2359         \\
-                                   & -          & 12              & 240          \\
-                                   & -          & 54              & 3025         \\
-                                   & -          & 41              & 459          \\ \hline[dashed]
-\SetCell[r=2]{l}{Fridge w/ freezer} & on         & 208             & 6304         \\
-                                   & -          & 7               & 37           \\ \hline[dashed]
-\SetCell[r=2]{l}{Television}       & stand-by   & 18              & 2514         \\
-                                   & on         & 110             & 1833         \\ \hline[dashed]
-\SetCell[r=2]{l}{Microwave}        & stand-by   & 42              & 302          \\
-                                   & microwave  & 1265            & 1433         \\ \hline[dashed]
-\SetCell[r=2]{l}{Lamp}             & -          & 2               & 309          \\
-                                   & on         & 19              & 587          \\ \hline[dashed]
-\SetCell[r=4]{l}{Washing machine}  & -          & 82              & 1176         \\
-                                   & -          & 118             & 1486         \\
-                                   & cotton 60° & 1281            & 1309         \\
-                                   & -          & 1783            & 1511         \\ \hline[dashed]
-\SetCell[r=2]{l}{Desktop}          & suspended  & 4               & 1159         \\
+\SetCell[r=2]{l}{Radio}            & Stand-by   & 1               & 80           \\
+                                   & On         & 37              & 4435         \\ \hline[dashed]
+\SetCell[r=4]{l}{Dishwasher}       &            & 136             & 2359         \\
+                                   &            & 12              & 240          \\
+                                   &            & 54              & 3025         \\
+                                   &            & 41              & 459          \\ \hline[dashed]
+\SetCell[r=2]{l}{Fridge w/ freezer} & On         & 208             & 6304         \\
+                                   &            & 7               & 37           \\ \hline[dashed]
+\SetCell[r=2]{l}{Television}       & Stand-by   & 18              & 2514         \\
+                                   & On         & 110             & 1833         \\ \hline[dashed]
+\SetCell[r=2]{l}{Microwave}        & Stand-by   & 42              & 302          \\
+                                   & Microwave  & 1265            & 1433         \\ \hline[dashed]
+\SetCell[r=2]{l}{Lamp}             &            & 2               & 309          \\
+                                   & On         & 19              & 587          \\ \hline[dashed]
+\SetCell[r=4]{l}{Washing machine}  &            & 82              & 1176         \\
+                                   &            & 118             & 1486         \\
+                                   & Cotton 60° & 1281            & 1309         \\
+                                   &            & 1783            & 1511         \\ \hline[dashed]
+\SetCell[r=2]{l}{Desktop}          & Suspended  & 4               & 1159         \\
                                    & on         & 41              & 12412        \\ \hline[dashed]
-\SetCell[r=3]{l}{Boiler}           & holiday    & 33              & 300          \\
-                                   & auto       & 57              & 525          \\
-                                   & comfort    & 101             & 2187         \\ \hline[dashed]
-\SetCell[r=3]{l}{AC}               & -         & 71              & 199          \\
-                                   & cool       & 336             & 3337         \\
-                                   & heat       & 656             & 30176 \\ \hline
+\SetCell[r=3]{l}{Boiler}           & Holiday    & 33              & 300          \\
+                                   & Auto       & 57              & 525          \\
+                                   & Comfort    & 101             & 2187         \\ \hline[dashed]
+\SetCell[r=3]{l}{AC}               &           & 71              & 199          \\
+                                   & Cool       & 336             & 3337         \\
+                                   & Heat       & 656             & 30176 \\ \hline
 \end{tblr}%
 }
-\caption{Preliminary results of operation modes identification}
+\caption{Preliminary results of operation modes identification.}
 \label{tab:preliminary_identification_results}
 \end{table}
 
@@ -316,41 +321,41 @@ Therefore, for these three appliances, the operation modes and their durations w
 \begin{tblr}{llcc}
 \hline
 \textbf{Appliance type}          & \textbf{Mode name} & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \hline
-\SetCell[r=2]{l}{Radio}      & stand-by        & 1    & -     \\
-                            & on              & 37   & 4435  \\ \hline[dashed]
-\SetCell[r=6]{l}{Dishwasher} & intensive       & 1400 & 10380 \\
-                            & daily           & 810  & 10260 \\
-                            & eco             & 700  & 6660  \\
-                            & express         & 350  & 1680  \\
-                            & delicate        & 800  & 7080  \\
-                            & pre-wash        & 10   & 660   \\ \hline[dashed]
-Fridge w/ freezer           & on              & 208  & 6304  \\ \hline[dashed]
-\SetCell[r=2]{l}{Television} & stand-by        & 18   & 2514  \\
-                            & on              & 110  & 1833  \\ \hline[dashed]
-\SetCell[r=7]{l}{Microwave}  & stand-by        & 5    & -     \\
-                            & microwave       & 750  & 300   \\
-                            & crisp           & 500  & 300   \\
-                            & grill           & 500  & 300   \\
-                            & grill+microwave & 500  & 300   \\
-                            & steam           & 350  & 300   \\
-                            & jet defrost     & 160  & 300   \\ \hline[dashed]
-Lamp                        & on              & 19   & 587   \\ \hline[dashed]
-\SetCell[r=7]{l}{Washing machine} & cotton 90°         & 2000                     & 8700                  \\
-                            & cotton 60E      & 950  & 7680  \\
-                            & cotton 60°      & 1200 & 7200  \\
-                            & cotton 30°      & 550  & 6900  \\
-                            & synthetic 30°   & 900  & 5400  \\
-                            & delicate 30°    & 500  & 3600  \\
-                            & wool            & 450  & 3300  \\ \hline[dashed]
-\SetCell[r=2]{l}{Desktop}    & suspended       & 4    & -     \\
-                            & on              & 41   & 12412 \\ \hline[dashed]
-\SetCell[r=3]{l}{Boiler}     & holiday         & 33   & 300   \\
-                            & comfort         & 57   & 525   \\
-                            & auto            & 101  & 2187  \\ \hline[dashed]
-\SetCell[r=2]{l}{AC}         & cool            & 336  & 3337  \\
-                            & heat            & 656  & 30176 \\ \hline
+\SetCell[r=2]{l}{Radio}      & Stand-by        & 1    & $\infty$      \\
+                            & On              & 37   & 4435  \\ \hline[dashed]
+\SetCell[r=6]{l}{Dishwasher} & Intensive       & 1400 & 10380 \\
+                            & Daily           & 810  & 10260 \\
+                            & Eco             & 700  & 6660  \\
+                            & Express         & 350  & 1680  \\
+                            & Delicate        & 800  & 7080  \\
+                            & Pre-wash        & 10   & 660   \\ \hline[dashed]
+Fridge w/ freezer           & On              & 208  & 6304  \\ \hline[dashed]
+\SetCell[r=2]{l}{Television} & Stand-by        & 18   & 2514  \\
+                            & On              & 110  & 1833  \\ \hline[dashed]
+\SetCell[r=7]{l}{Microwave}  & Stand-by        & 5    & $\infty$      \\
+                            & Microwave       & 750  & 300   \\
+                            & Crisp           & 500  & 300   \\
+                            & Grill           & 500  & 300   \\
+                            & Grill+microwave & 500  & 300   \\
+                            & Steam           & 350  & 300   \\
+                            & Jet defrost     & 160  & 300   \\ \hline[dashed]
+Lamp                        & On              & 19   & 587   \\ \hline[dashed]
+\SetCell[r=7]{l}{Washing machine} & Cotton 90°         & 2000                     & 8700                  \\
+                            & Cotton 60E      & 950  & 7680  \\
+                            & Cotton 60°      & 1200 & 7200  \\
+                            & Cotton 30°      & 550  & 6900  \\
+                            & Synthetic 30°   & 900  & 5400  \\
+                            & Delicate 30°    & 500  & 3600  \\
+                            & Wool            & 450  & 3300  \\ \hline[dashed]
+\SetCell[r=2]{l}{Desktop}    & Suspended       & 4    & $\infty$      \\
+                            & On              & 41   & 12412 \\ \hline[dashed]
+\SetCell[r=3]{l}{Boiler}     & Holiday         & 33   & 300   \\
+                            & Comfort         & 57   & 525   \\
+                            & Auto            & 101  & 2187  \\ \hline[dashed]
+\SetCell[r=2]{l}{AC}         & Cool            & 336  & 3337  \\
+                            & Heat            & 656  & 30176 \\ \hline
 \end{tblr}%
 }
-\caption{Results of operation modes identification}
+\caption{Results of operation modes identification.}
 \label{tab:identification_results}
 \end{table}
