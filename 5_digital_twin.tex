@@ -24,7 +24,7 @@
 
 \section{Conflict Scenarios}
 
-When simulating the addition of a new routine, a number of conflict scenarios with existing routines may happen. It is assumed that the existing routines are already consistent and conflict-free. The digital twin evaluates the potential conflicts in a sequential order and produces either errors or recommendations, or both. An error occurs when a conflict creates an inconsistency among the routines, e.g. when routines include actions that contradict each other, or that put the power draw over a maximum limit. An error halts the simulation and prevents further evaluation. Recommendations are either warnings about minor conflicts that do not affect the consistency, or suggestions to improve the user experience. A recommendation does not interrupt the simulation and allows for further evaluation. This means that the digital twin can provide multiple recommendations for different conflicts.
+When simulating the addition of a new routine, a number of conflict scenarios with existing routines may happen. It is assumed that the existing routines are already consistent and conflict-free. The digital twin evaluates the potential conflicts in a sequential order and produces \textit{errors} or \textit{recommendations}, or both. An error occurs when a conflict creates an inconsistency among the routines, e.g. when two routines include actions that contradict each other, or that put the power draw over a maximum limit. Errors halt the simulation and prevent further evaluation. Recommendations are either warnings about minor conflicts that do not affect the consistency, or suggestions to improve the user experience. A recommendation does not interrupt the simulation and allows for further evaluation. This means that the digital twin can provide multiple recommendations for different conflicts, but at most one error is returned at a time.
 
 
 \begin{enumerate}[label={\textit{S\arabic*.}}, leftmargin=3.5em]
@@ -34,25 +34,25 @@ When simulating the addition of a new routine, a number of conflict scenarios wi
 
     \item \textit{A better start time can be determined}. The digital twin should find a more economical start time for each action of the simulated routine, using pre-set electricity costs. This is important, for example, if the user has a variable electricity tariff, where it is less expensive to run appliances at night. If the electricity cost is constant throughout the day, this step can be ignored. The digital twin evaluates each action of the simulated routing sequentially, taking into account the best start time of the previous actions. For instance, if the best start time of action 1 of the simulated routine is 15:30, the digital twin should use that as a reference when evaluating action 2.
 
-    \item \textit{An appliance is running or activated manually}. This scenario requires the digital twin to monitor the running state of appliances, in addition to the routines. Before executing any routine actions, the digital twin should check for conflicts with scenarios S1 and S2, using the current state of the appliances as well. If the scenarios produce an error, the conflicting actions should be prevented from running. Actions that are conflict-free can still be executed. Any recommendation produced can be displayed to the user to alert them and offer alternatives on what to do.
+    \item \textit{An appliance is activated manually by the end user}. This scenario requires the digital twin to monitor the running state of appliances, in addition to the routines. Before executing any routine actions, the digital twin should check for conflicts with scenarios S1 and S2, using the current state of the appliances as well. If the scenarios produce an error, the conflicting actions should be prevented from running. Actions that are conflict-free can still be executed. Any recommendation produced can be displayed to the user to alert them and offer alternatives on what to do.
 \end{enumerate}
 
-\section{Identification of Best Start Times for an Action}
+The implementation of the digital twin developed for this thesis only covers conflicts S1-S4, while conflict S5 is left as a future development.
 
-\begin{equation}
-    \begin{aligned}
-        M &= \text{minutes of the day} = \{m \in \mathbb{R}: 1 \leq m \leq 24*60\}\\
-        A &= \text{appliances} = \{a_1, a_2, ..., a_n\}\\
-        O_a &= \textit{operation modes of appliance} a \in A = \{o_{a_1}, o_{a_2}, ..., o_{a_n}\}\\
-        c_m &= \text{cost of electricity at minute } m \in M\\
-        e_m &= \text{total electricity consumption at minute } m \in M\\
-        l &= \text{maximum electricity consumption limit}\\
-        d_i &= \text{duration of operation mode } i \in O_a\\
-        e_s &= \text{electricity consumption of operation mode } i \in O_a\\
-        x_m &= \text{binary variable indicating if appliance } a \in A \text{ is running at minute } m \in M\\
-        y_i &= \text{binary variable indicating if operation mode } i \in O_a \text{ is set at minute } m \in M\\
-        F_m &= \text{total electricity consumption at minute } m \in M\\
-        0 &\leq F_m \leq l \quad \forall m \in M\\
-        arg\,min_{m \in M}{F_m}
-    \end{aligned}
-\end{equation}
+\section{Appliance State Modeling}
+
+The digital twin should be able to model the state of each appliance at any time. This is important to evaluate the conflict scenarios S1 and S2. The state of an appliance is defined by its operation mode and the time it has been in that mode. The digital twin should be able to update the state of an appliance when a routine action is executed, and when the appliance is manually activated or deactivated. The state of an appliance is also used to evaluate the best start time for each action of the simulated routine, as described in scenario S3. The state of an appliance is updated by the digital twin when a routine action is executed, and when the appliance is manually activated or deactivated. The state of an appliance is also used to evaluate the best start time for each action of the simulated routine, as described in scenario S3.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/real_matrix.png}
+    \caption{Consumptions matrix of registered routines}
+    \label{fig:existing_consumption_matrix}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/simulated_matrix.png}
+    \caption{Simulated matrix.}
+    \label{fig:simulated_consumption_matrix}
+\end{figure}
