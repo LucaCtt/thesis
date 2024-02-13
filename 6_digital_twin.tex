@@ -1,26 +1,4 @@
-\chapter{Digital Twin}\label{ch:digital_twin}
-
-\begin{lstlisting}[language=json,caption={JSON file describing the fridge.},label=fridge_json,float,floatplacement=H]
-{
-    "id": 4,
-    "device": "fridge freezer",
-    "manufacturer": "Siemens",
-    "model": "",
-    "location": "kitchen",
-    "modes": [
-        {
-            "id": 0,
-            "name": "off",
-            "power_consumption": 0
-        },
-        {
-            "id": 1,
-            "name": "on",
-            "power_consumption": 208
-        }
-    ]
-}
-\end{lstlisting}
+\chapter{Digital Twin Implementation}\label{ch:implementation}
 
 \section{Conflict Scenarios}
 
@@ -39,6 +17,12 @@ When simulating the addition of a new routine, a number of conflict scenarios wi
 
 The implementation of the digital twin developed for this thesis only covers conflicts S1-S4, while conflict S5 is left as a future development.
 
+\section{Appliance and Routine Data}
+
+\input{code/appliance}
+
+\input{code/appliance}
+
 \section{Appliance State Modeling}
 
 The digital twin should be able to model the state of each appliance at any time. This is important to evaluate the conflict scenarios S1 and S2. The state of an appliance is defined by its operation mode and the time it has been in that mode. The digital twin should be able to update the state of an appliance when a routine action is executed, and when the appliance is manually activated or deactivated. The state of an appliance is also used to evaluate the best start time for each action of the simulated routine, as described in scenario S3. The state of an appliance is updated by the digital twin when a routine action is executed, and when the appliance is manually activated or deactivated. The state of an appliance is also used to evaluate the best start time for each action of the simulated routine, as described in scenario S3.
@@ -56,3 +40,5 @@ The digital twin should be able to model the state of each appliance at any time
     \caption{Simulated matrix.}
     \label{fig:simulated_consumption_matrix}
 \end{figure}
+
+\section{REST API}

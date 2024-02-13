@@ -72,9 +72,7 @@ The values of these parameters were selected empirically for each appliance, by 
 
 The sampling frequency of the activations is the default one provided by the datasets, which correspond to $1$ second for GREEND and $6$ seconds UK-DALE. The resulting activations were then clipped to a maximum threshold to eliminate noise. The maximum thresholds were chosen using the plots of the raw power consumption data of each appliance, represented in Figures~\ref{fig:raw_power_consumptions_greend} and~\ref{fig:raw_power_consumptions_uk_dale}, by selecting values that remove spurious power spikes. It can be observed from Figure~\ref{fig:ac} that the consumptions of the AC are unrealistically high. Due to the lack of other AC appliances in the datasets, the data was clipped and used anyway. Table~\ref{tab:activation_details} shows the parameters and the number of activations obtained for each appliance type.
 
-\begin{lstlisting}[language=plain,caption={[Example of an activation]Example of an activation for the fridge in building 3 of the GREEND dataset. The numbers are samples of the energy consumption (in watts) gathered every second.},label=lst:activation_example,float,floatplacement=H]
-0.000000 0.000000 66.601420 120.160070 63.387650 63.387650 173.715010 175.85713 130.871350 10.896457 ... 177.99924 186.56764 186.56764 188.70972 186.56764 201.56210 207.98820 201.56210 207.98820
-\end{lstlisting}
+\input{code/activation}
 
 \begin{figure}
   \begin{subfigure}{.5\textwidth}
