@@ -4,7 +4,6 @@
 
 When simulating the addition of a new routine, a number of conflict scenarios with existing routines may happen. It is assumed that the existing routines are already consistent and conflict-free. The digital twin evaluates the potential conflicts in a sequential order and produces \textit{errors} or \textit{recommendations}, or both. An error occurs when a conflict creates an inconsistency among the routines, e.g. when two routines include actions that contradict each other, or that put the power draw over a maximum limit. Errors halt the simulation and prevent further evaluation. Recommendations are either warnings about minor conflicts that do not affect the consistency, or suggestions to improve the user experience. A recommendation does not interrupt the simulation and allows for further evaluation. This means that the digital twin can provide multiple recommendations for different conflicts, but at most one error is returned at a time.
 
-
 \begin{enumerate}[label={\textit{S\arabic*.}}, leftmargin=3.5em]
     \item \textit{An appliance has conflicting operation modes in the same time interval}. This occurs when a simulated routine assigns an appliance a different operation mode than the one assigned by the existing routines in the same time interval. If the simulated routine assigns the same operation mode as the existing routines, there is no conflict. For instance, the AC is set to \textit{heat} from 8:00 to 12:00. A simulated routine that sets the AC to \textit{cold} from 10:00 to 11:00 causes a conflict. The digital twin rejects the simulated routine with an error that specifies the conflicting action and the existing routine and action. It also suggests deactivating the existing routine instead. This may be useful, for example, in weather conditions with sudden temperature changes, where the user may want to adjust the AC temporarily. If the simulated routine does not cause an inconsistency, e.g. it sets the AC to \textit{heat} from 11:00 to 13:00, then the digital twin accepts the simulated routine with a recommendation to modify the existing routine action to set \textit{heat} from 8:00 to 13:00.
 
@@ -21,7 +20,7 @@ The implementation of the digital twin developed for this thesis only covers con
 
 \input{code/appliance}
 
-\input{code/appliance}
+\input{code/routine}
 
 \section{Appliance State Modeling}
 
