@@ -1,6 +1,28 @@
 \chapter{Analysis of Smart Home Datasets}\label{ch:analysis_of_smart_home_datasets}
 
-To address RQ1, two types of datasets related to the Smart Home subject that adhere to the criteria outlined in Section~\ref{sec:methodology} have been identified:
+To analyze the smart home datasets available in the literature, a scoping review process based on the procedural steps outlined in \parencite{makStepsConductingScoping2022} was adopted. Three research questions were identified to guide this research:
+\begin{enumerate}[label={RQ\arabic*.}, leftmargin=3.5em]
+    \item What datasets about appliances are available in the field of smart homes?
+    \item Which dataset type is most pertinent to the objectives of this thesis?
+    \item What are the characteristics of the datasets falling under the selected type?
+\end{enumerate}
+
+The search for relevant literature and datasets initiated from \parencite{barkerSmartOpenData2012}, employing forward snowballing to identify related peer-reviewed publications discussing datasets pertinent to the smart home domain. Additional searches were conducted on Google Scholar, IEEE XPlore, and the Discovery Service of the University of Brescia, utilizing the following search string: \textit{((``Smart Home'' OR ``Home Digital Twin'') AND (``Dataset'' OR ``Data Set''))}. No specific time range was imposed. The search on each engine concluded after two pages with no relevant results. Duplicate entries and non-English results were excluded. Papers about datasets related to the Smart Home subject, or at least mentioned any such dataset, were included. Backward snowballing was subsequently performed on each identified relevant paper. The resulting set of papers was analyzed in order to answer the research questions.
+
+From the compiled list of datasets, only those meeting the following criteria were studied:
+\begin{itemize}
+    \item The data must originate from actual residential buildings, excluding commercial buildings or laboratory settings.
+    \item The dataset must be publicly accessible.
+    \item The dataset must include data about household appliances.
+    \item Only datasets are considered, not tools for generating datasets.
+    \item The study duration must be a minimum of one year, or the dataset should encompass details on at least 15 different appliance types.
+\end{itemize}
+
+\newpage
+
+\section{Taxonomy of Smart Home Datasets}
+
+To address RQ1, two types of datasets related to the Smart Home subject that adhere to the criteria outlined above have been identified:
 \begin{itemize}
     \item \textit{\acrfull{adl}} datasets, which contain data about the actions of building occupants. Datasets of these type usually gather data from captured images or videos, environmental sensors, devices worn by occupants, or appliance usage.
     \item \textit{Power Consumption} datasets, that encompass data about the energy use in buildings. In the literature, two main groups of power consumption datasets can be identified: appliance-level and aggregated-level. The former traces power consumption of individual devices in buildings, while the latter provides the power consumption of households as a whole.
@@ -112,7 +134,7 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
             11          & SynD             & 2020          & Austria           & Synthetic     & 2                  & 180 days        & 21                     & Fridge, Dishwasher, Electric heater, Washing machine, Toaster, Fan, Microwave, Iron, Hot air gun, Router, Coffee machine, TV, Printer, Laptop computer, Lamp, Gaming PC, Pocket Radio, Monitor, Electric oven, Hair dryer, Water kettle                                                                                                                                                                                                                       \\
             12          & DEDDIAG          & 2021          & Germany           & Real-world    & 15                 & 3.5 years       & 8                      & Coffee machine, dish washer, dryer, freezer, office desk, refrigerator, tv, washing machine                                                                                                                                                                                                                                                                                                                                                                   \\ \hline
         \end{tabular}}
-    \caption{Overview of power consumption datasets.}
+    \caption[Overview of power consumption datasets]{Overview of power consumption datasets.}
     \label{tab:datasets_overview}
 \end{table}
 
