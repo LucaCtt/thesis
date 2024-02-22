@@ -17,7 +17,7 @@ An hypothethical home was designed as a starting point for the creation of the \
 \begin{figure}
   \centering
   \includegraphics[width=0.75\linewidth]{images/floor_plan.png}
-  \caption[Floor plan of a hypothetical case study home with the location of the chosen appliance types.]{Floor plan of a hypothetical case study home with the location of the chosen appliance types.}
+  \caption[Floor plan of a hypothetical case study home with the location of the chosen appliance types.]{Floor plan of a hypothetical case study home with the location of the chosen appliance types. Picture courtesy of Matteo Pigoli.}
   \label{fig:home_floor_plan}
 \end{figure}
 
@@ -39,7 +39,7 @@ For each appliance type, a specific appliance studied in one of the buildings in
     Boiler                  & UK-DALE          & 4                 &                       &                \\
     AC                      & UK-DALE          & 5                 &                       &                \\ \hline
   \end{tabular}%
-  \caption[Details of selected appliances]{Details of selected appliances. Missing cells indicate that the information is not provided.}
+  \caption[Details of selected appliances]{Details of selected appliances. Empty cells indicate that the information is not provided.}
   \label{tab:appliances_details}
 \end{table}
 
@@ -47,7 +47,7 @@ A limitation of both the GREEND an UK-DALE datasets is that they do not record t
 
 A possible solution is identifying the operation mode of appliances from the power consumption data using unsupervised learning methods. A naive approach to doing so is clustering the raw energy values: this can work for simple appliances, such as lamps or televisions, but not for complex ones with \textit{operation cycles}, such as fridges or washing machines. For example, a washing machine might draw no power for a short period while the clothes soak, and then use a lot of power for a spin cycle. Both of these cycles are part of the same operation mode, but there is no way to recognize this when clustering the raw data. Furthermore, methods based on raw data are also susceptible to noisy points and outliers; thus, they often lead to poor clustering results~\parencite{castangiaClusteringApplianceOperation2023}.
 
-The approach used in this thesis is inspired by the one proposed by~\cite{castangiaClusteringApplianceOperation2023}, which uses unsupervised deep learning techniques to cluster appliance operation modes from a learned, \textit{latent state} representation of the raw data. Figure~\ref{fig:high_level_procedure} illustrates the main steps of the approach. First, a segmentation procedure is applied to the raw appliance data to identify the active states that contain the actual power signatures of the device. These signatures are then standardized and fed to a deep autoencoder model, which learns to reconstruct the operation cycles and to encode them into a latent representation. Next, a K-means clustering algorithm is applied to the latent representation, which groups the operation cycles into different programs of the device. Finally, the clusters are mapped to operation modes of the appliance. The remaining sections in this chapter describe the steps in more detail. The code for the extraction of activations is available on GitHub\footnote{\url{https://github.com/LucaCtt/appliances_data_extraction}}, while the remaining steps are executed in a Google Colab notebook\footnote{\url{https://colab.research.google.com/drive/1blnoyyP10gGdRL6b4JzaeBLg8zs2kVv9?usp=sharing}}.
+The approach used in this thesis is inspired by the one proposed by~\textcite{castangiaClusteringApplianceOperation2023}, which uses unsupervised deep learning techniques to cluster appliance operation modes from a learned, \textit{latent state} representation of the raw data. Figure~\ref{fig:high_level_procedure} illustrates the main steps of the approach. First, a segmentation procedure is applied to the raw appliance data to identify the active states that contain the actual power signatures of the device. These signatures are then standardized and fed to a deep autoencoder model, which learns to reconstruct the operation cycles and to encode them into a latent representation. Next, a K-means clustering algorithm is applied to the latent representation, which groups the operation cycles into different programs of the device. Finally, the clusters are mapped to operation modes of the appliance. The remaining sections in this chapter describe the steps in more detail. The code for the extraction of activations is available on GitHub\footnote{\url{https://github.com/LucaCtt/appliances_data_extraction}}, while the remaining steps are executed in a Google Colab notebook\footnote{\url{https://colab.research.google.com/drive/1blnoyyP10gGdRL6b4JzaeBLg8zs2kVv9?usp=sharing}}.
 
 \begin{figure}
   \centering
@@ -215,7 +215,7 @@ Pooling and upsampling layers often accompany convolutional layers. Pooling laye
 \begin{figure}
   \centering
   \includegraphics[width=.65\linewidth]{images/modes_clustering/lstm.png}
-  \caption[LSTM cell architecture]{LSTM cell architecture. From~\cite{zhangDiveDeepLearning2023}, Subsection 10.1.1, CC-BY-SA 4.0 license.}
+  \caption[LSTM cell architecture]{LSTM cell architecture. From~\textcite{zhangDiveDeepLearning2023}, Subsection 10.1.1, CC-BY-SA 4.0 license.}
   \label{fig:lstm_architecture}
 \end{figure}
 
@@ -262,7 +262,7 @@ To find the optimal number of clusters K for each appliance, a grid search was r
   s(i) = \frac{b(i) - a(i)}{\max{a(i), b(i)}}
 \end{equation}
 
-The clustering with the highest silhouette score was chosen. The search space for K was limited to values between $2$ and $4$, because lower values would not capture the diversity of the operation modes, and higher values would create too many noise clusters that could not be interpreted as meaningful modes. This also matches the realistic expectation that end users do not make use of all the operation modes for their appliances. For instance, it is possible that an end user only uses a washing machine for a few programs, such as a quick wash or a delicate wash, and never uses the other programs.
+The clustering with the highest silhouette score was chosen. The search space for K was limited to values between $2$ and $4$, because lower values would not capture the diversity of the operation modes, and higher values would create too many noise clusters that could not be interpreted as meaningful modes. This also matches the realistic expectation that end users do not make use of all the operation modes for their appliances. For instance, it is possible that an end user only uses a washing machine with a few programs, such as a quick wash or a delicate wash, and never uses the other programs.
 
 \section{Identification of Operation Modes}
 
@@ -277,12 +277,12 @@ The cluster labels were used to identify the operation modes of the appliance, a
 
 First, the appliance activations are assigned to the closest cluster centroid, which represents the mean activation of each cluster. Then, the mean power consumption value of each centroid is computed and rounded to the nearest integer. These values are the potential operation modes of the appliance. Next, a selection process is performed to merge or discard operation modes that have similar or unrealistic power consumption values, based on the device manuals. The manuals also provide the names for the identified modes. This procedure may not detect all the operation modes, especially if the end users do not use some of them frequently, or if the procedure confuses transitional states with modes.
 
-Second, the duration of each operation mode is estimated by calculating the average duration (in seconds) of the activations that belong to the same cluster. The duration values are also rounded to the nearest integer. These values are used as default durations for the operation modes. These preliminary results obtained are reported in Table~\ref{tab:preliminary_identification_results}.
+Second, the duration of each operation mode is estimated by calculating the average duration (in seconds) of the activations that belong to the same cluster. The duration values are also rounded to the nearest integer. These values are used as default durations for the operation modes. The obtained preliminary results are reported in Table~\ref{tab:preliminary_identification_results}.
 
 \begin{table}[hbt]
   \centering
   \resizebox{.39\textwidth}{!}{%
-    \begin{tblr}{llcc}
+    \begin{tblr}{lcc}
       \hline
       \textbf{Appliance type}             & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \hline
       \SetCell[r=2]{l}{Radio}             & 1                        & 80                    \\

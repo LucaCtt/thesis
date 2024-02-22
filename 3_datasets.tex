@@ -32,7 +32,7 @@ From the above descriptions, it is clear that the datasets of utmost interest fo
 \begin{figure}[h]
     \centering
     \includegraphics[width=.9\textwidth]{images/taxonomy_power_consumption.jpg}
-    \caption[Applications of power consumption datasets]{Applications of power consumption datasets. From~\cite{himeurBuildingPowerConsumption2020}, page 5. CC-BY 4.0 license.}
+    \caption[Applications of power consumption datasets]{Applications of power consumption datasets. From~\textcite{himeurBuildingPowerConsumption2020}, page 5. CC-BY 4.0 license.}
     \label{fig:applications_power_consumption_datasets}
 \end{figure}
 
@@ -118,7 +118,7 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
 \begin{table}
     \centering
     \resizebox{\textwidth}{!}{%
-        \begin{tabular}{lllp{.1\textwidth}lp{.1\textwidth}lp{.14\textwidth}p{.65\textwidth}}
+        \begin{tabular}{lllp{.1\textwidth}l>{\centering}p{.1\textwidth}c>{\centering}p{.14\textwidth}p{.65\textwidth}}
             \hline
             \textbf{\#} & \textbf{Dataset} & \textbf{Year} & \textbf{Location} & \textbf{Type} & \textbf{\# Houses} & \textbf{Period} & \textbf{\# Appliances} & \textbf{Appliances}                                                                                                                                                                                                                                                                                                                                                                                                                                           \\ \hline
             1           & REDD             & 2011          & USA               & Real-world    & 6                  & 119 days        & 19                     & Furnace, outlets, washing machine, fridge, dish washer, lights, duct heater, dryer, microwave, AC, egauge, panel-GFI, tub, kitchen-counter, wine-cellar, garage-door, barn, well, solar                                                                                                                                                                                                                                                                       \\
@@ -141,9 +141,9 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
 \begin{table}
     \centering
     \resizebox{\textwidth}{!}{%
-        \begin{tabular}{llllll}
+        \begin{tabular}{llccll}
             \hline
-            \multirow{2}{*}{\#} & \multirow{2}{*}{Dataset} & \multicolumn{2}{l}{Resolution} & \multirow{2}{*}{Features} & \multirow{2}{*}{Applications}                          \\ \cline{3-4} &  & Aggregate & Appliance &  & \\ \hline
+            \multirow{2}{*}{\#} & \multirow{2}{*}{Dataset} & \multicolumn{2}{c}{Resolution} & \multirow{2}{*}{Features} & \multirow{2}{*}{Applications}                          \\ \cline{3-4} &  & Aggregate & Appliance &  & \\ \hline
             1                   & REDD                     & 15 kHz                         & 0.5 Hz, 1 Hz              & I, V, P                       & A1, A2, A4, A5         \\
             2                   & HES                      & 2 min or 10 min                & 2 min or 10 min           & I, V, P, T                    & A1, A6                 \\
             3                   & Tracebase                & -                              & 1-8s                      & P, Np                         & A1, A6                 \\
