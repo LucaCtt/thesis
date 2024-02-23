@@ -28,7 +28,7 @@
     xrightmargin=2em,
     framexrightmargin=1.5em
 }
-\lstdefinelanguage{json}{
+\lstdefinelanguage{numbered}{
     basicstyle=\linespread{1.2}\normalfont\ttfamily,
     numbers=left,
     numberstyle=\scriptsize,
@@ -45,6 +45,8 @@
 }
 \renewcommand\lstlistingname{Code Sample}
 \renewcommand\lstlistlistingname{List of Code Samples}
+\let\Chapter\chapter
+\def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
 
 % Glossary
 \usepackage[acronym,nonumberlist]{glossaries}

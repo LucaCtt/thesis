@@ -1,47 +1,59 @@
 \chapter{Digital Twin Implementation}\label{ch:implementation}
 
-The implementation of the \acrshort{dt} is based on the hypothetical home described in Chapter~\ref{ch:hypothetical_home}. 
+The implementation of the \acrshort{dt} is based on the hypothetical home described in Chapter~\ref{ch:hypothetical_home}.
 
 \begin{itemize}
     \item No physical twin exists yet, development of the digital twin is the first step.
     \item What the digital twin does.
-        \begin{itemize}
-            \item Read routines and appliances;
-            \item Show current and future consumption of appliances;
-            \item Simulate new routines;
-            \item Evaluate conflicts;
-            \item Produce errors and recommendations.
-        \end{itemize}
+          \begin{itemize}
+              \item Read routines and appliances;
+              \item Show current and future consumption of appliances;
+              \item Simulate new routines;
+              \item Evaluate conflicts;
+              \item Produce errors and recommendations.
+          \end{itemize}
     \item Appliance state modeling.
     \item Conflict scenarios.
     \item Implementation details
-        \begin{itemize}
-            \item Appliance and routine data;
-            \item Python libraries;
-            \item REST API in FastAPI;
-            \item Frontend in React.
-        \end{itemize}
+          \begin{itemize}
+              \item Appliance and routine data;
+              \item Python libraries;
+              \item REST API in FastAPI;
+              \item Frontend in React.
+          \end{itemize}
 \end{itemize}
 
 \section{Configuration}
 
 \input{code/config.tex}
 
-The \acrshort{dt} supports a TOML configuration file, located at the path set by the \texttt{CONFIG\_PATH} environment variable. The configuration file contains the following information:
+The \acrshort{dt} can read a configuration file written in TOML, located at the path set by the \texttt{CONFIG\_PATH} environment variable. The configuration file contains the following information:
 \begin{itemize}
     \item \texttt{energy}: energy related parameters.
-        \begin{itemize}
-            \item \texttt{max\_power}: the maximum power draw, in kW;
-            \item \texttt{energy\_rates\_number}: the number of energy rates, e.g. 2 means dual-rate;
-            \item \texttt{energy\_rates\_prices}: the price for each energy rate, in \texteuro/kWh.
-        \end{itemize}
+          \begin{itemize}
+              \item \texttt{max\_power}: the maximum power draw, in kW;
+              \item \texttt{energy\_rates\_number}: the number of energy rates, e.g. 2 means dual-rate;
+              \item \texttt{energy\_rates\_prices}: the price for each energy rate, in \texteuro/kWh.
+          \end{itemize}
     \item \texttt{database}: database related parameters.
-        \begin{itemize}
-            \item \texttt{type}: the type of database, e.g. \texttt{json};
-            \item \texttt{appliances\_dir}: the directory where the appliance data is stored;
-            \item \texttt{routines\_dir}: the directory where the routine data is stored;
-        \end{itemize}
+          \begin{itemize}
+              \item \texttt{type}: the type of database, only \texttt{json} is supported at the moment;
+              \item \texttt{appliances\_dir}: the directory where the appliances JSON files are stored;
+              \item \texttt{routines\_dir}: the directory where the routine JSON files are stored;
+              \item \texttt{test\_routines\_dir}: the directory where the routine JSON files for tests are stored;
+          \end{itemize}
 \end{itemize}
+
+The number of energy rates follows the Delibera n.181/06\footnote{\url{https://www.arera.it/atti-e-provvedimenti/dettaglio/06/181-06} (visited on 2024, February 22)} by the \acrfull{arera}, which defines the conditions for the application of multiple-rate tariffs. A maximum of three rates (F1, F2, F3) is allowed, where F1 goes from 8:00 to 19:00, monday to friday, F2 goes from 7:00 to 8:00 and from 19:00 to 23:00, monday to friday, and from 7:00 to 23:00 on saturday, and F3 goes from 23:00 to 7:00, monday to saturday, and from 23:00 to 24:00 on sunday. The allocation of the rates, represented in Figure~\ref{fig:costs_matrix} depends on the time of the day and the day of the week. The actual number of rates can be lower than three, depending on the contract with the energy provider. If only two rates are quoted, the rates F2 and F3 can be grouped to form a dual rate tariff (F1, F23).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/costs.png}
+    \caption[Electricity tariffs applied in italy for every day of the week]{Electricity tariffs applied in italy for every day of the week. F1 is the peak rate, F2 is the mid-level, and F3 is off-peak}
+    \label{fig:costs_matrix}
+\end{figure}
+
+The configuration used for the development of the \acrshort{dt} is shown in Code Sample~\ref{code:config}. Two energy rates are used, where the prices correspond to the \acrfull{pun} values, i.e. the Single National Price values, refferring to the month of December 2023. The \acrshort{pun} is calculated by the \acrfull{gme}\footnote{\url{https://www.mercatoelettrico.org/En/default.aspx} (visited on 2024, February 22)}, as the weighted average of the prices of the energy markets, and is used as a reference for the energy costs in Italy. The maximum power draw is set to $3kW$, which is the standard maximum power supply before cut off in Italy.
 
 \section{Appliance and Routine Data}
 
@@ -54,12 +66,12 @@ Examples of appliance JSON files for the dish washer and the washing machine are
     \item \textit{Model} (optional): the model of the appliance e.g. \textit{ADF 555 IX};
     \item \textit{Location}: the room where the appliance is located, e.g. \textit{kitchen};
     \item \textit{Modes}: the list of operation modes available for the appliance. Every appliance has at least an \textit{off} mode, that consumes no power. For each mode the following information is provided:
-        \begin{itemize}
-            \item \textit{ID}: a unique integer number identifying the mode among the other modes of the appliance;
-            \item \textit{Name}: the name of the mode, e.g. \textit{intensive};
-            \item \textit{Power consumption}: the mean power consumption of the appliance in the mode, in Watts;
-            \item \textit{Default duration} (optional): the default duration of the operation mode, which will be used if the user does not specify a duration in the routine.
-        \end{itemize}
+          \begin{itemize}
+              \item \textit{ID}: a unique integer number identifying the mode among the other modes of the appliance;
+              \item \textit{Name}: the name of the mode, e.g. \textit{intensive};
+              \item \textit{Power consumption}: the mean power consumption of the appliance in the mode, in Watts;
+              \item \textit{Default duration} (optional): the default duration of the operation mode, which will be used if the user does not specify a duration in the routine.
+          \end{itemize}
 \end{itemize}
 
 \input{code/dish_washer}
@@ -72,11 +84,11 @@ An example of a routine which starts the dish washer in \textit{intensive} mode 
     \item \textit{Name}: a name for the routine, e.g. \textit{wash everything};
     \item \textit{When}: the time when the routine is executed, in the format \textit{HH:MM};
     \item \textit{Actions}: the list of actions that the routine involves. For each action the following information is provided:
-        \begin{itemize}
-            \item \textit{ID}: a unique integer number identifying the action among the other actions of the routine;
-            \item \textit{Appliance ID}: the ID of the appliance involved in the action;
-            \item \textit{Duration} (optional): the duration of the operation mode, in minutes. If not specified, the default duration of the mode is used.
-        \end{itemize}
+          \begin{itemize}
+              \item \textit{ID}: a unique integer number identifying the action among the other actions of the routine;
+              \item \textit{Appliance ID}: the ID of the appliance involved in the action;
+              \item \textit{Duration} (optional): the duration of the operation mode, in minutes. If not specified, the default duration of the mode is used.
+          \end{itemize}
 \end{itemize}
 
 \input{code/wash_everything}
@@ -96,7 +108,7 @@ The matrix is implemented using the \texttt{ndarray} class provided by the NumPy
 
 Each row of the matrix corresponds a minute of the day, and each column represents an appliance, by associating the appliance ID to the column index. For example, the first column of the matrix (index $0$) corresponds to the appliance with index 0. The value of each cell is the ID of the operation mode in which the appliance is set at that minute. Given that in a day there are $24 \times 60 = 1440$ minutes, and the hypothetical home has 15 appliances, the state map is a $1440 \times 15$ matrix. The type of the matrix is \textit{uint8}, which allows to store integers from 0 to 255, which is enough to store the IDs of the operation modes of the appliances. The total memory used by the state map is $1440 \times 15 \times 8 = 172800$ bits, which corresponds to roughly $21$ kilobytes.
 
-\section{Conflict Scenarios}
+\section{Simulation of New Routines}
 
 \begin{figure}
     \centering
@@ -124,28 +136,28 @@ The implementation of the digital twin developed for this thesis only covers con
 \section{REST API}
 
 \begin{table}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tblr}{ll>{\raggedright}p{.18\textwidth}p{.18\textwidth}lp{.5\textwidth}}
-\hline
-Endpoint                    & Method & Path parameters                & Query Parameters        & Body parameters     & Description                                                                                                                         \\ \hline
-/consumption                & GET         & date and time                  &                         &                     & Returns a list of energy consumption values of all appliances at the given date and time.                                           \\
-/consumption                & GET         & appliance id, date and time &                         &                     & Returns the energy consumption value of the given appliance at the given date and time.                                              \\
-/consumption/total          & GET         &                                & list of dates and times &                     & Returns the list of total energy consumption of all appliances at the given dates and times.                                         \\
-/consumption/total          & GET         & date and time                  &                         &                     & Returns the total energy consumption of all appliances at the given date and time.                                                   \\ \hline[dashed]
-/appliance                  & GET         &                                &                         &                     & Returns the list of all appliances                                                                                                  \\
-/appliance                  & GET         & appliance id                &                         &                     & Returns a specific appliance                                                                                                        \\ \hline[dashed]
-/routine                    & GET         &                                &                         &                     & Returns the list of all routines                                                                                                    \\
-/routine                    & GET         & routine id                  &                         &                     & Returns a specific routine                                                                                                          \\ \hline[dashed]
-/simulate                   & POST        &                                &                         & routine to simulate & Simulates the addition of a routine and returns a list of recommendations and errors (if any)                                       \\
-/simulate/consumption       & POST        & date and time                  &                         & routine to simulate & Simulates the addition of a routine and returns a list of energy consumption values of all appliances at the given date and time    \\
-/simulate/consumption       & POST        & appliance id, date and time &                         & routine to simulate & Simulates the addition of a routine and returns the energy consumption value of the given appliance at the given date and time      \\
-/simulate/consumption/total & POST        & date and time                  &                         & routine to simulate & Simulates the addition of a routine and returns the list of total energy consumption of all appliances at the given dates and times \\
-/simulate/consumption/total & POST        &                                & list of dates and times & routine to simulate & Simulates the addition of a routine and returns the total energy consumption of all appliances at the given date and time           \\ \hline
-\end{tblr}%
-}
-\caption{Endpoints of the \acrshort{dt}'s REST API.}
-\label{tab:rest_api_endpoints}
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tblr}{ll>{\raggedright}p{.18\textwidth}p{.18\textwidth}lp{.5\textwidth}}
+            \hline
+            Endpoint                    & Method & Path parameters             & Query Parameters        & Body parameters     & Description                                                                                                                         \\ \hline
+            /consumption                & GET    & date and time               &                         &                     & Returns a list of energy consumption values of all appliances at the given date and time.                                           \\
+            /consumption                & GET    & appliance id, date and time &                         &                     & Returns the energy consumption value of the given appliance at the given date and time.                                             \\
+            /consumption/total          & GET    &                             & list of dates and times &                     & Returns the list of total energy consumption of all appliances at the given dates and times.                                        \\
+            /consumption/total          & GET    & date and time               &                         &                     & Returns the total energy consumption of all appliances at the given date and time.                                                  \\ \hline[dashed]
+            /appliance                  & GET    &                             &                         &                     & Returns the list of all appliances                                                                                                  \\
+            /appliance                  & GET    & appliance id                &                         &                     & Returns a specific appliance                                                                                                        \\ \hline[dashed]
+            /routine                    & GET    &                             &                         &                     & Returns the list of all routines                                                                                                    \\
+            /routine                    & GET    & routine id                  &                         &                     & Returns a specific routine                                                                                                          \\ \hline[dashed]
+            /simulate                   & POST   &                             &                         & routine to simulate & Simulates the addition of a routine and returns a list of recommendations and errors (if any)                                       \\
+            /simulate/consumption       & POST   & date and time               &                         & routine to simulate & Simulates the addition of a routine and returns a list of energy consumption values of all appliances at the given date and time    \\
+            /simulate/consumption       & POST   & appliance id, date and time &                         & routine to simulate & Simulates the addition of a routine and returns the energy consumption value of the given appliance at the given date and time      \\
+            /simulate/consumption/total & POST   & date and time               &                         & routine to simulate & Simulates the addition of a routine and returns the list of total energy consumption of all appliances at the given dates and times \\
+            /simulate/consumption/total & POST   &                             & list of dates and times & routine to simulate & Simulates the addition of a routine and returns the total energy consumption of all appliances at the given date and time           \\ \hline
+        \end{tblr}%
+    }
+    \caption{Endpoints of the \acrshort{dt}'s REST API.}
+    \label{tab:rest_api_endpoints}
 \end{table}
 
 \section{Frontend}
