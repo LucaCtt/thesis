@@ -17,7 +17,7 @@ An hypothethical home was designed as a starting point for the creation of the \
 \begin{figure}
   \centering
   \includegraphics[width=0.75\linewidth]{images/floor_plan.png}
-  \caption[Floor plan of a hypothetical case study home with the location of the chosen appliance types.]{Floor plan of a hypothetical case study home with the location of the chosen appliance types. Picture courtesy of Matteo Pigoli.}
+  \caption[Floor plan of a hypothetical case study home with the location of the chosen appliance types.]{Floor plan of a hypothetical case study home with the location of the chosen appliance types. Adapted from the floor plan courtesy of Matteo Pigoli}
   \label{fig:home_floor_plan}
 \end{figure}
 
@@ -39,7 +39,7 @@ For each appliance type, a specific appliance studied in one of the buildings in
     Boiler                  & UK-DALE          & 4                 &                       &                \\
     AC                      & UK-DALE          & 5                 &                       &                \\ \hline
   \end{tabular}%
-  \caption[Details of selected appliances]{Details of selected appliances. Empty cells indicate that the information is not provided.}
+  \caption[Details of selected appliances]{Details of selected appliances. Empty cells indicate that the information is not provided}
   \label{tab:appliances_details}
 \end{table}
 
@@ -52,13 +52,13 @@ The approach used in this thesis is inspired by the one proposed by~\textcite{ca
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{images/modes_clustering/high_level_procedure.png}
-  \caption[High level procedure for identifying the operation modes of appliances.]{High level procedure for identifying the operation modes of appliances.}
+  \caption{High level procedure for identifying the operation modes of appliances}
   \label{fig:high_level_procedure}
 \end{figure}
 
 \section{Extraction of Appliances Activations}
 
-An \textit{appliance activation} is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of an activation for the fridge in building 3 of GREEND is reported in Listing~\ref{lst:activation_example}, which highlights how the consumption values change during the activation. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off, and can thus be filtered out. The power consumption when an appliance is off is assumed to be zero.
+An \textit{appliance activation} is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of an activation for the fridge in building 3 of GREEND is reported in Listing~\ref{code:activation_example}, which highlights how the consumption values change during the activation. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off, and can thus be filtered out. The power consumption when an appliance is off is assumed to be zero.
 
 To identify the activations, the GREEN and UK-DALE datasets were accessed using NILMTK\footnote{\url{https://github.com/nilmtk/nilmtk}}, a Python toolkit designed for comparing the performance of energy disaggregation algorithms~\parencite{batraItDifferentInsights2013}, which also provides data analysis functions for NILM datasets. The appliance activations were extracted at the default frequency of the datasets (every second for GREEND and every six seconds for UK-DALE) using NILMTK's \texttt{Electric.get\_activations()} method, with three arguments used for configuration:
 \begin{itemize}
@@ -119,7 +119,7 @@ The sampling frequency of the activations is the default one provided by the dat
     \caption{Desktop computer}
     \label{fig:desktop_computer}
   \end{subfigure}
-  \caption[Raw power consumptions of appliances extracted from GREEND]{Raw power consumptions of appliances extracted from GREEND. The samples are gathered every second. The red line represents the maximum threshold used to clip the activations.}
+  \caption[Raw power consumptions of appliances extracted from GREEND]{Raw power consumptions of appliances extracted from GREEND. The samples are gathered every second. The red line represents the maximum threshold used to clip the activations. The plots were obtained using the Maplotlib library~\parencite{hunterMatplotlib2DGraphics2007}}
   \label{fig:raw_power_consumptions_greend}
 \end{figure}
 
@@ -142,7 +142,7 @@ The sampling frequency of the activations is the default one provided by the dat
     \caption{Lamp}
     \label{fig:lamp}
   \end{subfigure}
-  \caption[Raw power consumptions of appliances extracted from UK-DALE]{Raw power consumptions of appliances extracted from UK-DALE. The samples are gathered every six seconds. The red line represents the maximum threshold used to clip the activations.}
+  \caption[Raw power consumptions of appliances extracted from UK-DALE]{Raw power consumptions of appliances extracted from UK-DALE. The samples are gathered every six seconds. The red line represents the maximum threshold used to clip the activations. The plots were obtained using the Maplotlib library~\parencite{hunterMatplotlib2DGraphics2007}}
   \label{fig:raw_power_consumptions_uk_dale}
 \end{figure}
 
@@ -169,7 +169,7 @@ The sampling frequency of the activations is the default one provided by the dat
       AC                                                    & 120 & 120 & 300 & 1000 & 1095 \\ \hline
     \end{tabular}%
   }
-  \caption[Activation details for each appliance]{Activation details for each appliance.}
+  \caption{Activation details for each appliance}
   \label{tab:activation_details}
 \end{table}
 
@@ -215,7 +215,7 @@ Pooling and upsampling layers often accompany convolutional layers. Pooling laye
 \begin{figure}
   \centering
   \includegraphics[width=.65\linewidth]{images/modes_clustering/lstm.png}
-  \caption[LSTM cell architecture]{LSTM cell architecture. From~\textcite{zhangDiveDeepLearning2023}, Subsection 10.1.1, CC-BY-SA 4.0 license.}
+  \caption[LSTM cell architecture]{LSTM cell architecture. From~\textcite{zhangDiveDeepLearning2023}, Subsection 10.1.1, CC-BY-SA 4.0 license}
   \label{fig:lstm_architecture}
 \end{figure}
 
@@ -228,7 +228,7 @@ Figure~\ref{fig:autoencoder_architecture} shows the autoencoder architecture use
 \begin{figure}
   \centering
   \includegraphics[width=.8\linewidth]{images/modes_clustering/autoencoder.png}
-  \caption[Architecutre of the autoencoder]{Architecture of the autoencoder. The colors identify layers with similar purpose.}
+  \caption{Architecture of the autoencoder}
   \label{fig:autoencoder_architecture}
 \end{figure}
 
@@ -242,7 +242,7 @@ The loss function used is the mean square error between the output and the origi
 \begin{figure}
   \centering
   \includegraphics[width=.6\linewidth]{images/modes_clustering/loss.png}
-  \caption{Evolution of training and validation losses during training.}
+  \caption{Evolution of training and validation losses during training}
   \label{fig:autoencoder_losses}
 \end{figure}
 
@@ -253,7 +253,7 @@ The complete clustering procedure for the operation modes of appliances is illus
 \begin{figure}
   \centering
   \includegraphics[width=.5\linewidth]{images/modes_clustering/clustering.png}
-  \caption{Procedure for clustering the operation modes of appliances.}
+  \caption{Procedure for clustering the operation modes of appliances}
   \label{fig:clustering}
 \end{figure}
 
@@ -271,7 +271,7 @@ The cluster labels were used to identify the operation modes of the appliance, a
 \begin{figure}
   \centering
   \includegraphics[width=.55\linewidth]{images/modes_clustering/identification.png}
-  \caption[Procedure for identifying the operation modes of appliances]{Procedure for identifying the operation modes of appliances.}
+  \caption{Procedure for identifying the operation modes of appliances}
   \label{fig:identification}
 \end{figure}
 
@@ -313,7 +313,7 @@ Second, the duration of each operation mode is estimated by calculating the aver
                                           & 656                      & 30176                 \\ \hline
     \end{tblr}%
   }
-  \caption[Preliminary results of operation modes identification]{Preliminary results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances.}
+  \caption[Preliminary results of operation modes identification]{Preliminary results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances}
   \label{tab:preliminary_identification_results}
 \end{table}
 
@@ -368,6 +368,6 @@ Therefore, for the washing machine, dishwasher, and microwave, the operation mod
                                         & Heat               & 656                      & 30176                 \\ \hline
     \end{tblr}%
   }
-  \caption[Results of operation modes identification]{Results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances.}
+  \caption[Results of operation modes identification]{Results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances}
   \label{tab:identification_results}
 \end{table}

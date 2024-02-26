@@ -32,7 +32,7 @@ The term \acrshort{dt} was coined by Michael Grieves in 2002, in the context of 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/digital_twins/dt_model_grieves.png}
-    \caption[Grieves' digital twin model]{Grieves' digital twin model. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Research Background} section, CC-BY 4.0 license.}
+    \caption[Grieves' digital twin model]{Grieves' digital twin model. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Research Background} section, CC-BY 4.0 license}
     \label{fig:grieves_digital_twin}
 \end{figure}
 
@@ -63,14 +63,14 @@ Moreover, \acrshort{dt}s are also a key element of Industry 4.0~\parencite{brett
     Finally, the \acrshort{dt} has self-adaptation and self-parametrization capabilities, to adjust its internal parameters to keep pace with the evolving physical twin throughout its lifecycle. It also exploits predictive analytics to predict future statuses, important changes, and to recommend optimal actions and interventions. When making future predictions, it must take into account uncertainties in the data. At any time, it should offer a real-time view of the physical system's condition, and enable simulation and exploration of potential \textit{what-if} scenarios under various conditions, supporting informed decision-making~\parencite{boschertDigitalTwinSimulation2016}.
 \fi
 
-\subsection{Design of Digital Twins}
+\subsection{Design of Digital Twins}\label{sec:dt_design}
 
 \acrshort{dt}s can have two different lifecycles, depending on whether the objects they represent are already existing or not~\parencite{barricelliSurveyDigitalTwin2019}. The first lifecycle applies to objects that are still in the design stage, and involves creating both the object and its \acrshort{dt} simultaneously. The second lifecycle applies to objects that already exist, but do not have a \acrshort{dt} yet. In this case, the design process aims to equip the objects with connectivity features to enable their \acrshort{dt} creation. Both lifecycles follow the same sequence: a Design phase, a Development phase, an Operational phase, and a Dismissal phase.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/digital_twins/dt_lifecycle_1.png}
-    \caption[Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, starting from the development of the \acrshort{dt}]{Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, starting from the development of the \acrshort{dt}. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Design Implications} section, CC-BY 4.0 license.}
+    \caption[Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, starting from the development of the \acrshort{dt}]{Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, starting from the development of the \acrshort{dt}. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Design Implications} section, CC-BY 4.0 license}
     \label{fig:dt_lifecycle_1}
 \end{figure}
 
@@ -81,11 +81,13 @@ The \acrshort{dt} is created before the physical object as a prototype $DT_{obje
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/digital_twins/dt_lifecycle_2.png}
-    \caption[Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, when the \acrshort{ct} scanner already exists]{Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, when the \acrshort{ct} scanner already exists. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Design Implications} section, CC-BY 4.0 license.}
+    \caption[Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, when the \acrshort{ct} scanner already exists]{Lifecycle of a \acrshort{ct} scanner and its \acrshort{dt}, when the \acrshort{ct} scanner already exists. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Design Implications} section, CC-BY 4.0 license}
     \label{fig:dt_lifecycle_2}
 \end{figure}
 
 The second lifecycle is in Figure~\ref{fig:dt_lifecycle_2}. In this case, the object is already existing and in use, but it does not have a connected DT. The design phase creates a new prototype DT ($DT_{object}$), which is tested, modified and validated. The development phase connects the existing object and the $DT_{object}$, now a development $DT_{object}$. The operational phase is the life of the two twins, the connected object and the product $DT_{object}$, which work together until their disposal in the dismissal phase. The (physical and digital) twins rely on a synergistic and continuous interaction, which enables monitoring, predicting, and optimizing all their functions.
+
+The lifecycle used for the development of the \acrshort{dt} proposed in this thesis follows the first lifecycle, as the \acrshort{dt} is created before the physical object. The \acrshort{dt} is designed and developed to mirror the life of the smart home, and it is used to monitor, predict, and optimize the smart home's functions.
 
 \section{Automations for Smart Devices}
 

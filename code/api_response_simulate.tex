@@ -1,0 +1,28 @@
+\begin{lstlisting}[language=plain,caption={Response to HTTP POST request to the \textit{/simulate} endpoint},label=code:api_response_simulate,float,floatplacement=H]
+{
+    values: {
+        {
+            "message": "Disable routine \"Wash Everything\"",
+            "context": {
+                "type": "DISABLE_ROUTINE",
+                "routine_id": 3
+            }
+        },
+        {
+            "message": "Change start time of routine \"Party Time\"",
+            "context": {
+                "type": "CHANGE_START_TIME",
+                "routine_id": 32,
+                "when": "08:00"
+            }
+        }
+    },
+    error: {
+        "message": "Power consumption of the house is greater than 3.0kW at 09:59. This can cause a power cut-off.",
+        "context": {
+            "when": "09:59",
+            "max_power": "3000"
+        }
+    }
+}
+\end{lstlisting}
