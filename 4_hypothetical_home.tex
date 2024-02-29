@@ -16,15 +16,16 @@ An hypothetical home was designed as a starting point for the creation of the \a
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\linewidth]{images/floor_plan.png}
+  \includegraphics[width=0.7\linewidth]{images/floor_plan.png}
   \caption[Floor plan of a hypothetical case study home with the location of the chosen appliance types]{Floor plan of a hypothetical case study home with the location of the chosen appliance types. Adapted from the floor plan courtesy of Matteo Pigoli}
   \label{fig:home_floor_plan}
 \end{figure}
 
-For each appliance type, a specific appliance studied in one of the buildings in GREEND or UK-DALE was chosen as a representative sample. Table~\ref{tab:appliances_details} shows the details of the selected appliances, including the source dataset, the building, the manufacturer, and the model. The preferred sources were buildings $3$ and $5$ of the GREEND dataset, as they had a large number of appliance data and reasonable consumption values. Other buildings in GREEND were discarded, as they either contained insufficient usage data, or the consumptions were highly unrealistic, indicating measurement errors. The appliance types that were either unavailable or unsuitable in GREEND were instead chosen from the UK-DALE dataset. Again, the buildings and appliances were chosen with the same criteria as GREEND. Because no information about individual \acrshort{ac} splits was available, the whole-home \acrshort{ac} consumption was used instead. This corresponds to the three splits being controlled collectively.
+For each appliance type, a specific appliance studied in one of the buildings in GREEND or UK-DALE was chosen as a representative sample. Table~\ref{tab:appliances_details} shows the details of the selected appliances, including the source dataset, the building, the manufacturer, and the model. The preferred sources were buildings 3 and 5 of the GREEND dataset, as they had a large number of appliance data and reasonable consumption values. Other buildings in GREEND were discarded, as they either contained insufficient usage data, or the consumptions were highly unrealistic, indicating measurement errors. The appliance types that were either unavailable or unsuitable in GREEND were instead chosen from the UK-DALE dataset. Again, the buildings and appliances were chosen with the same criteria as GREEND. Because no information about individual \acrshort{ac} splits was available, the whole-home \acrshort{ac} consumption was used instead. This corresponds to the three splits being controlled collectively.
 
 \begin{table}
   \centering
+  \resizebox{.8\textwidth}{!}{%
   \begin{tabular}{llcll}
     \hline
     \textbf{Appliance type} & \textbf{Dataset} & \textbf{Building} & \textbf{Manufacturer} & \textbf{Model} \\ \hline
@@ -39,6 +40,7 @@ For each appliance type, a specific appliance studied in one of the buildings in
     Boiler                  & UK-DALE          & 4                 &                       &                \\
     AC                      & UK-DALE          & 5                 &                       &                \\ \hline
   \end{tabular}%
+  }
   \caption[Details of selected appliances]{Details of selected appliances. Empty cells indicate that the information is not provided}
   \label{tab:appliances_details}
 \end{table}
@@ -58,7 +60,9 @@ The approach used in this thesis is inspired by the one proposed by~\textcite{ca
 
 \section{Extraction of Appliances Activations}
 
-An \textit{appliance activation} is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of activation for the fridge in building 3 of GREEND is reported in Listing~\ref{code:activation_example}, which highlights how the consumption values change during the activation. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off, and can thus be filtered out. The power consumption when an appliance is off is assumed to be zero.
+An \textit{appliance activation} is defined as a sequence of power consumption values gathered in a time interval in which the appliance is switched on. An example of activation for the fridge in building 3 of GREEND is reported in Code Sample~\ref{code:activation_example}, which highlights how the consumption values change during the activation. The goal of extracting the activations is to identify the distinct operations of an appliance based on the continuous active power measurements available, which however include time intervals in which the appliances are switched off, and can thus be filtered out. The power consumption when an appliance is off is assumed to be zero.
+
+\input{code/activation}
 
 To identify the activations, the GREEN and UK-DALE datasets were accessed using NILMTK\footnote{\url{https://github.com/nilmtk/nilmtk}}, a Python toolkit designed for comparing the performance of energy disaggregation algorithms~\parencite{batraItDifferentInsights2013}, which also provides data analysis functions for NILM datasets. The appliance activations were extracted at the default frequency of the datasets (every second for GREEND and every six seconds for UK-DALE) using NILMTK's \texttt{Electric.get\_activations()} method, with three arguments used for configuration:
 \begin{itemize}
@@ -66,13 +70,9 @@ To identify the activations, the GREEN and UK-DALE datasets were accessed using 
   \item \texttt{min\_off\_duration}: the minimum duration (in seconds) for the appliance to be below \texttt{on\_power\_threshold} to be considered turned off.
   \item \texttt{min\_on\_duration}: the minimum duration (in seconds) for the activation to be valid. This, along with \texttt{min\_off\_duration}, helps to filter out spurious power spikes.
 \end{itemize}
-The values of these parameters were selected empirically for each appliance, by selecting combinations that produced a balance between the number of activations and their mean length. For example, considering the microwave in building 3 of GREEND, using $\texttt{on\_power\_threshold} = 20$, $\texttt{min\_off\_duration} = 20$, and $\texttt{min\_on\_duration} = 10$ resulted in $2311$ activations, with a mean duration of around $471$ seconds. When using instead $\texttt{on\_power\_threshold} = 10$, $\texttt{min\_off\_duration} = 5$, and $\texttt{min\_on\_duration} = 5$ resulted in $15609$ activations, with a mean duration close however to just $78$ seconds.
-
-\newpage
+The values of these parameters were selected empirically for each appliance, by preferring combinations that produced a balance between the number of activations and their mean length. For example, considering the microwave in building 3 of GREEND, using $\texttt{on\_power\_threshold} = 20$, $\texttt{min\_off\_duration} = 20$, and $\texttt{min\_on\_duration} = 10$ resulted in $2311$ activations, with a mean duration of around $471$ seconds. When using instead $\texttt{on\_power\_threshold} = 10$, $\texttt{min\_off\_duration} = 5$, and $\texttt{min\_on\_duration} = 5$ resulted in $15609$ activations, with a mean duration close however to just $78$ seconds.
 
 The sampling frequency of the activations is the default one provided by the datasets, which corresponds to $1$ second for GREEND and $6$ seconds UK-DALE. The resulting activations were then clipped to a maximum threshold to eliminate noise. The maximum thresholds were chosen using the plots of the raw power consumption data of each appliance, represented in Figures~\ref{fig:raw_power_consumptions_greend} and~\ref{fig:raw_power_consumptions_uk_dale} using Matplotlib~\parencite{hunterMatplotlib2DGraphics2007}, by selecting values that remove spurious power spikes. It can be observed from Figure~\ref{fig:ac} that the consumptions of the AC are unrealistically high. Due to the lack of other AC appliances in the datasets, the data was clipped and used anyway. Table~\ref{tab:activation_details} shows the parameters and the number of activations obtained for each appliance type.
-
-\input{code/activation}
 
 \begin{figure}
   \begin{subfigure}{.5\textwidth}
@@ -184,15 +184,13 @@ One-dimensional (1-D) convolutional layers are neural network layers commonly us
   \tilde{y} = f(\sum_{i=1}^{n}{w_i x_i} + b)
 \end{equation}
 
-\newpage
-
 Pooling and upsampling layers often accompany convolutional layers. Pooling layers shrink the output from the convolutional layer. Max pooling does this by taking the maximum value of a sliding window along the input sequence~\parencite{ahmadDeepLearningMultiscale2019}; this helps in selecting the most important features from the input, lower the computation and memory cost, and avoid overfitting~\parencite{zhangDiveDeepLearning2023,masciStackedConvolutionalAutoEncoders2011}. Upsampling layers are somewhat the opposite, as they enlarge their input by inserting zeros between the input values.
 
 \subsection{Long-Short Term Memory}
 
 \acrfull{lstm} is a type of \acrfull{rnn} that can learn long-term dependencies in sequential data. \acrshort{rnn}s are neural networks that have feedback loops, which allow them to process sequential data such as text, speech, audio, or time series~\parencite{ahmadDeepLearningMultiscale2019}. However, \acrshort{rnn}s often suffer from vanishing or exploding gradient, which makes it difficult to learn from distant past inputs or outputs. \acrshort{lstm} solves this problem by introducing a memory cell that can store, update, and retrieve information over long periods~\parencite{hochreiterLongShortTermMemory1997}. This is useful to learn both the short-term and long-term dependencies among the values of the activations of an appliance.
 
-\acrshort{lstm}s use three gates (input, output, and forget) to control the information flow in and out of the memory cell. These gates can decide what information to keep or discard, based on the current input and the previous state. The full architecture is shown in Figure~\ref{fig:lstm_architecture}. At each time step, the \acrshort{lstm} cell takes the current input $X_t$ and a summary of all previous inputs, which is composed of the short-term state $H_{t-1}$ and the long-term state $C_{t-1}$. Equations~\eqref{equ:lstm_1}---\eqref{equ:lstm_6} show the different operations performed by the \acrshort{lstm} cell, where $W_{xi}$, $W_{xf}$, $W_{xo}$, and $W_{xc}$ are the weights of the input vector $X_t$; $W_{hi}$, $W_{hf}$, $W_{ho}$, and $W_{hc}$ are the weights of the previous short-term state vector $H_{t-1}$; $b_i$, $b_f$, $b_o$, and $b_c$ are the bias terms.
+\acrshort{lstm}s use three gates (input, output, and forget) to control the information flow in and out of the memory cell. These gates can decide what information to keep or discard, based on the current input and the previous state. The full architecture is shown in Figure~\ref{fig:lstm_architecture}. At each time step, the \acrshort{lstm} cell takes the current input $X_t$ and a summary of all previous inputs, which is composed of the short-term state $H_{t-1}$ and the long-term state $C_{t-1}$. Equations~\eqref{equ:lstm_1}--\eqref{equ:lstm_6} show the different operations performed by the \acrshort{lstm} cell, where $W_{xi}$, $W_{xf}$, $W_{xo}$, and $W_{xc}$ are the weights of the input vector $X_t$; $W_{hi}$, $W_{hf}$, $W_{ho}$, and $W_{hc}$ are the weights of the previous short-term state vector $H_{t-1}$; $b_i$, $b_f$, $b_o$, and $b_c$ are the bias terms.
 \begin{equation}\label{equ:lstm_1}
   I_t = \sigma(X_{t}W_{xi} + H_{t-1}W_{hi} + b_{i})
 \end{equation}
@@ -214,12 +212,14 @@ Pooling and upsampling layers often accompany convolutional layers. Pooling laye
 
 \begin{figure}
   \centering
-  \includegraphics[width=.65\linewidth]{images/modes_clustering/lstm.png}
+  \includegraphics[width=.8\linewidth]{images/modes_clustering/lstm.png}
   \caption[LSTM cell architecture]{LSTM cell architecture. From~\textcite{zhangDiveDeepLearning2023}, Subsection 10.1.1, CC-BY-SA 4.0 license}
   \label{fig:lstm_architecture}
 \end{figure}
 
 A \acrfull{bilstm} is a combination of two \acrshort{lstm}s that process the input sequence in both forward and backward directions~\parencite{schusterBidirectionalRecurrentNeural1997}. One \acrshort{lstm} takes the input sequence as it is, and the other \acrshort{lstm} takes the input sequence in reverse order. The outputs of both \acrshort{lstm}s are then concatenated or summed to produce the final output. A \acrshort{bilstm} can capture both the past and future context of the input sequence and learn which direction is more important for each output step.
+
+\newpage
 
 \subsection{Autoencoder Architecture and Training}
 
@@ -232,7 +232,7 @@ Figure~\ref{fig:autoencoder_architecture} shows the autoencoder architecture use
   \label{fig:autoencoder_architecture}
 \end{figure}
 
-The model was implemented using Tensorflow~\parencite{abadiTensorFlowLargeScaleMachine2016,tensorflowdevelopersTensorFlow2023} version \texttt{2.15.0} and Keras~\parencite{cholletKeras2015}, in the version provided by Tensorflow. The Python version is \texttt{3.10.12}. The training was executed using a Google Colab notebook\footnote{\url{https://colab.research.google.com/drive/1blnoyyP10gGdRL6b4JzaeBLg8zs2kVv9?usp=sharing}}, running \texttt{Ubuntu 22.04.03 LTS} with the Linux kernel \texttt{6.1.58}, with an \texttt{Intel Xeon 2.00GHz} CPU, a \texttt{Tesla T4} GPU, and $12.6GB$ of RAM.
+The model was implemented using Tensorflow~\parencite{abadiTensorFlowLargeScaleMachine2016,tensorflowdevelopersTensorFlow2023} version 2.15.0 and Keras~\parencite{cholletKeras2015}, in the version provided by Tensorflow. The Python version is 3.10.12. The training was executed using a Google Colab notebook\footnote{\url{https://colab.research.google.com/drive/1blnoyyP10gGdRL6b4JzaeBLg8zs2kVv9?usp=sharing}}, running Ubuntu 22.04.03 LTS with the Linux kernel 6.1.58, with an Intel Xeon 2.00GHz CPU, a Tesla T4 GPU, and 12.6GB of available RAM.
 
 The loss function used is the mean square error between the output and the original input. The network parameters are optimized by using the \acrfull{adam} algorithm with a learning rate of $0.001$ and a batch size of $32$. The training process lasts for $500$ epochs at most, but it stops sooner if the loss value does not improve for $40$ epochs, returning the best model found. The $20\%$ of training instances were held out for training validation. All training instances are zero-padded or truncated to $896$ samples. This number was chosen as it is close to the average length of all activations, and it is divisible by $2$ for $6$ times, which ensures that the up-sampling layers in the decoder correctly reconstruct the input dimensions. The instances are then standardized using Equation~\eqref{equ:std}, where the mean $\mu_X$ and standard deviation $\sigma_X$ are computed across all the power measurements $X$. The evolution of the training and validation loss values during training are reported in Figure~\ref{fig:autoencoder_losses}.
 \begin{equation}\label{equ:std}
@@ -241,7 +241,7 @@ The loss function used is the mean square error between the output and the origi
 
 \begin{figure}
   \centering
-  \includegraphics[width=.6\linewidth]{images/modes_clustering/loss.png}
+  \includegraphics[width=.51\linewidth]{images/modes_clustering/loss.png}
   \caption{Evolution of training and validation losses during training}
   \label{fig:autoencoder_losses}
 \end{figure}
@@ -252,14 +252,14 @@ The complete clustering procedure for the operation modes of appliances is illus
 
 \begin{figure}
   \centering
-  \includegraphics[width=.5\linewidth]{images/modes_clustering/clustering.png}
+  \includegraphics[width=.55\linewidth]{images/modes_clustering/clustering.png}
   \caption{Procedure for clustering the operation modes of appliances}
   \label{fig:clustering}
 \end{figure}
 
 To find the optimal number of clusters K for each appliance, a grid search was run to evaluate the \textit{silhouette score} of each possible clustering. The silhouette score quantifies how well a latent state belongs to its cluster compared to other clusters~\parencite{rousseeuwSilhouettesGraphicalAid1987}. It is computed for each latent state using Equation~\eqref{equ:silhouette}, where $a(i)$ is the mean squared distance between the latent state and the other latent states in the same cluster, and $b(i)$ is the minimum mean squared distance between the latent state and the latent states in different clusters. The silhouette score ranges from $-1$ to $1$, with higher values indicating better clustering. The average silhouette score of all the latent states is used as a metric for the quality of the clustering as a whole.
 \begin{equation}\label{equ:silhouette}
-  s(i) = \frac{b(i) - a(i)}{\max{a(i), b(i)}}
+  s(i) = \frac{b(i) - a(i)}{\max{\{a(i), b(i)\}}}
 \end{equation}
 
 The clustering with the highest silhouette score was chosen. The search space for K was limited to values between $2$ and $4$, because lower values would not capture the diversity of the operation modes, and higher values would create too many noise clusters that could not be interpreted as meaningful modes. This also matches the realistic expectation that end users do not make use of all the operation modes for their appliances. For instance, it is possible that an end user only uses a washing machine with a few programs, such as a quick wash or a delicate wash, and never uses the other programs.
@@ -281,7 +281,7 @@ Second, the duration of each operation mode is estimated by calculating the aver
 
 \begin{table}[hbt]
   \centering
-  \resizebox{.39\textwidth}{!}{%
+  \resizebox{.5\textwidth}{!}{%
     \begin{tblr}{lcc}
       \hline
       \textbf{Appliance type}             & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \hline
@@ -353,7 +353,7 @@ Therefore, for the washing machine, dishwasher, and microwave, the operation mod
                                         & Jet defrost        & 160                      & 300                   \\ \hline[dashed]
       Lamp                              & On                 & 19                       & 587                   \\ \hline[dashed]
       \SetCell[r=7]{l}{Washing machine} & Cotton 90°         & 2000                     & 8700                  \\
-                                        & Cotton 60E         & 950                      & 7680                  \\
+                                        & Cotton 60 ECO         & 950                      & 7680                  \\
                                         & Cotton 60°         & 1200                     & 7200                  \\
                                         & Cotton 30°         & 550                      & 6900                  \\
                                         & Synthetic 30°      & 900                      & 5400                  \\
