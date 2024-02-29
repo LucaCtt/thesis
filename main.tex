@@ -1,6 +1,6 @@
 \documentclass[a4paper,12pt]{report} % Foglio a4, font size 12, solo fronte
 \usepackage[utf8]{inputenc} % Codifica caratteri
-\usepackage[lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm]{geometry} % Bordi pagina come da formato tesi Unibs
+\usepackage[includehead, inner=3.0cm, outer=2.0cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{charter} % Text font
 \usepackage[titles]{tocloft} % TOC compatta
 \usepackage{blkarray, bigstrut, amssymb} % Checkmark e altri simboli
@@ -40,8 +40,8 @@
     captionpos=b,
     xleftmargin=2em,
     framexleftmargin=2em,
-    xrightmargin=2em,
-    framexrightmargin=1.5em
+    xrightmargin=1em,
+    framexrightmargin=1em
 }
 \renewcommand\lstlistingname{Code Sample}
 \renewcommand\lstlistlistingname{List of Code Samples}
@@ -71,7 +71,7 @@
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
 % Bibliografia
-\usepackage[backend=biber, style=apa]{biblatex} % Bibliografia su un file a parte
+\usepackage[backend=biber, style=apa, uniquelist=false]{biblatex} % Bibliografia su un file a parte
 \addbibresource{refs.bib} % File contentente la bibliografia
 
 % Spaziature
@@ -86,7 +86,7 @@
 \titleformat*{\section}{\LARGE\bfseries}
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
-\titlespacing*{\chapter}{0pt}{-40pt}{5pt}
+\titlespacing*{\chapter}{0pt}{-60pt}{5pt}
 \titlespacing*{\section}{0pt}{0pt}{0pt}
 \titlespacing*{\subsection}{0pt}{0pt}{0pt}
 \titlespacing*{\subsection}{0pt}{0pt}{0pt}
@@ -95,7 +95,7 @@
 % Intestazione pagine
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{#1}}
 \fancyhf{}
 \fancyhead[L]{\nouppercase \leftmark}
 \fancyfoot[C]{\thepage}
@@ -108,7 +108,9 @@
 \input{acronyms}
 
 \begin{document}
+    \newgeometry{lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm} % Bordi pagina come da formato tesi Unibs
     \input{title} % Frontespizio
+    \restoregeometry
     \hyphenpenalty=2000 % Meno probabile lo spezzamento delle parole a capo
 
     \pagenumbering{Roman}
