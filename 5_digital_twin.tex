@@ -1,10 +1,10 @@
-\chapter{Digital Twin Implementation}\label{ch:implementation}
+\chapter{Digital Twin Implementation}\label{ch:digital_twin}
 
-As introduced in Section~\ref{sec:dt_design}, the \acrshort{dt} developed for this thesis was implemented from scratch, since there is no existing physical twin to model. Therefore, the hypothetical home scenario described in Chapter~\ref{ch:hypothetical_home} served as the basis for the \acrshort{dt} development.
+The \acrshort{dt} developed for this thesis was designed and implemented considering the hypothetical home scenario described in Chapter~\ref{ch:hypothetical_home} as a starting point. This was necessary because, as introduced in Section~\ref{sec:dt_design}, there is no existing physical twin to model. 
 
-The \acrshort{dt} consists of a \acrfull{rest} \acrfull{api}, which exposes endpoints for accessing and manipulating the data and routines of the home appliances, displaying the energy consumption of the appliances over time, and simulating the effects of adding new routines and resolving potential conflicts with the existing ones. The \acrshort{rest} \acrshort{api} enables the separation of the \acrshort{dt} logic from the user interface, and allows the \acrshort{dt} to be integrated with various clients, such as web applications, mobile applications, and other services. A web application was also developed in this thesis to demonstrate the functionalities of the \acrshort{dt}.
+The \acrshort{dt} consists of a \acrfull{rest} \acrfull{api}, which exposes endpoints for accessing and manipulating the data and routines of the smart home, displaying the energy consumption of the appliances over time, and simulating the effects of adding new routines and resolving potential conflicts with the existing ones. The \acrshort{rest} \acrshort{api} enables the separation of the \acrshort{dt} logic from the user interface, and allows the \acrshort{dt} to be integrated with various clients, such as web applications, mobile applications, and other services. A web application was also developed in this thesis to demonstrate the functionalities of the \acrshort{dt}.
 
-The \acrshort{dt} implementation involved some simplifications and assumptions, which are left for future work to address. First, the \acrshort{dt} operates on a daily basis, from 00:00 to 23:59, and assumes that the routines are repeated every day under the same conditions. This also means that, in circumstances where the \acrshort{dt} uses dates and times in input or output values, the date part is not significant. Second, the \acrshort{dt} only tracks the state of the appliances based on the routines and does not account for the manual activation of the appliances by the users. Third, the \acrshort{dt} relies on static files to provide the information about the routines and appliances in the home and does not update them to reflect the changes in the physical twin. These limitations stem from the fact that there \acrshort{dt} is no physical twin to mirror yet.
+The \acrshort{dt} implementation involved some simplifications and assumptions, which are left for future work to address. First, the \acrshort{dt} operates on a daily basis, from 00:00 to 23:59, and assumes that the routines are repeated every day under the same conditions. This also means that, in circumstances where the \acrshort{dt} uses dates and times in input or output values, the date part is not significant. Second, the \acrshort{dt} only tracks the state of the appliances based on the routines and does not account for the manual activation of the appliances by the users. Third, the \acrshort{dt} relies on static files to provide the information about the routines and appliances in the home and does not update them to reflect the changes in the physical twin. These limitations stem from the fact that there is no physical twin to mirror yet.
 
 The code for the \acrshort{dt} implementation is available with an MIT license on a GitHub repository\footnote{\url{https://github.com/LucaCtt/digital_twin}}.
 
@@ -16,11 +16,11 @@ An \acrfull{api} is a software interface that defines how different applications
 
 \acrfull{rest} is an architectural style for designing distributed hypermedia systems that use the HTTP protocol to enable scalable web services. It was first proposed by Roy Fielding in his doctoral dissertation~\parencite{fieldingArchitecturalStylesDesign2000}. The core idea of \acrshort{rest} is to model the system as a collection of resources, which are uniquely identified by URIs and can be accessed and modified using a predefined set of operations~\parencite{framlingProductAgentsHandling2003}.
 
-For an \acrshort{api} to be considered \acrshort{rest}ful, it has to conform to these criteria~\parencite{redhatinc.WhatRESTAPI2020,fieldingArchitecturalStylesDesign2000}:
+For an \acrshort{api} to be considered \acrshort{rest}ful, it must have the following characteristics~\parencite{redhatinc.WhatRESTAPI2020,fieldingArchitecturalStylesDesign2000}:
 \begin{itemize}
     \item A client-server architecture that separates the concerns of the clients, servers, and resources, and handles the requests through HTTP.
     \item Stateless communication, meaning that each request is independent and does not rely on any previous or future requests, and no client information is stored on the server side.
-    \item Cacheable data that improves the performance and efficiency of the client-server interactions.
+    \item Cacheable data that improves the efficiency of the client-server interactions.
     \item A uniform interface that ensures a consistent and standardized way of transferring data between the components, using formats such as XML, JSON, or plain text. This thesis uses JSON, which is a popular and lightweight format that is easy to read and write.
     \item A layered system that abstracts the complexity of the system by hiding the details of each type of server (such as security, load-balancing, etc.) involved in the data retrieval process from the client.
     \item Code-on-demand (optional): the capability of sending executable code from the server to the client upon request, enhancing the functionality of the client.
@@ -30,7 +30,7 @@ For an \acrshort{api} to be considered \acrshort{rest}ful, it has to conform to 
 
 The \acrshort{dt} \acrshort{api} is built with Python 3.11, using the FastAPI\footnote{\url{https://fastapi.tiangolo.com/}} library, which is a fast and easy-to-use web framework for creating \acrshort{api}s. The FastAPI library is based on the Starlette\footnote{\url{https://www.starlette.io/}} framework, which is a lightweight \acrfull{asgi} toolkit for developing high-performance services. This enables the \acrshort{dt} \acrshort{api} to handle concurrent requests and to be scalable and maintainable.
 
-FastAPI also supports the automatic generation of OpenAPI documentation, which is a standard for describing \acrshort{rest} \acrshort{api}s. Figure~\ref{fig:backend_swagger} shows an example of such documentation, which is rendered using the Swagger UI\footnote{\url{https://swagger.io/tools/swagger-ui/}}, a tool for exploring and testing the \acrshort{rest} \acrshort{api} resources, based on the OpenAPI specification. The documentation lists all the endpoints, the methods, and the parameters for each endpoint. The UI also shows the possible responses for each endpoint and detailed information about the response format. Moreover, the documentation allows the user to interact with the \acrshort{api} directly from the browser, by sending requests to the endpoints and receiving responses.
+FastAPI also supports the automatic generation of OpenAPI documentation, which is a standard for describing \acrshort{rest} \acrshort{api}s. Figure~\ref{fig:backend_swagger} shows an example of such documentation, which is rendered using the Swagger UI\footnote{\url{https://swagger.io/tools/swagger-ui/}}, a tool for exploring and testing the \acrshort{rest} \acrshort{api} resources, based on the OpenAPI specification. The documentation lists all the endpoints, methods, and parameters for each endpoint. The UI also shows the possible responses for each endpoint and detailed information about the response format. Moreover, the documentation allows the user to interact with the \acrshort{api} directly from the browser, by sending requests to the endpoints and receiving responses.
 
 \begin{figure}
     \centering
@@ -67,6 +67,8 @@ Table~\ref{tab:rest_api_endpoints} lists all the endpoints of the \acrshort{dt} 
     \label{tab:rest_api_endpoints}
 \end{table}
 
+\newpage
+
 \subsection{Example of Requests}
 
 \input{code/api_response_shape}
@@ -90,7 +92,7 @@ The \acrshort{dt} supports several configuration parameters, set by a configurat
     \item \texttt{energy}: energy-related parameters.
           \begin{itemize}
               \item \texttt{max\_power}: the maximum power consumption, in kW;
-              \item \texttt{energy\_rates\_number}: the number of energy tariffs, e.g. 2 for dual-rate;
+              \item \texttt{energy\_rates\_number}: the number of energy tariffs, e.g. $2$ for dual-rate;
               \item \texttt{energy\_rates\_prices}: the cost of each energy tariff, in \texteuro/kWh.
           \end{itemize}
     \item \texttt{database}: database-related parameters.
@@ -102,7 +104,7 @@ The \acrshort{dt} supports several configuration parameters, set by a configurat
           \end{itemize}
 \end{itemize}
 
-The \acrshort{dt} supports up to three energy tariffs (F1, F2, F3), as defined by the \acrfull{arera} in the Delibera n.181/06\footnote{\url{https://www.arera.it/atti-e-provvedimenti/dettaglio/06/181-06} (visited on 2024, February 22)}. The tariffs vary according to the time and the day of the week, as shown in Figure~\ref{fig:costs_matrix}. The peak F1 goes from 8:00 to 19:00, Monday to Friday. The intermediate tariff F2 goes from 7:00 to 8:00 and from 19:00 to 23:00, Monday to Friday, and from 7:00 to 23:00 on Saturday. The off-peak tariff F3 goes from 23:00 to 7:00, Monday to Saturday, and from 23:00 to 24:00 on Sunday. The number of tariffs can be lower than three, depending on the contract with the energy provider. If only two tariffs are available, F2 and F3 are merged into a single tariff F23.
+The \acrshort{dt} supports up to three energy tariffs (F1, F2, F3), as defined by the \acrfull{arera} in the Delibera n.181/06\footnote{\url{https://www.arera.it/atti-e-provvedimenti/dettaglio/06/181-06}}. The tariffs vary according to the time and the day of the week, as shown in Figure~\ref{fig:costs_matrix}. The peak F1 goes from 8:00 to 19:00, Monday to Friday. The intermediate tariff F2 goes from 7:00 to 8:00 and from 19:00 to 23:00, Monday to Friday, and from 7:00 to 23:00 on Saturday. The off-peak tariff F3 goes from 23:00 to 7:00, Monday to Saturday, and for the whole day on Sunday. The number of tariffs can be lower than three, depending on the contract with the energy provider. If only two tariffs are available, F2 and F3 are merged into a single tariff F23.
 
 \begin{figure}
     \centering
@@ -111,7 +113,7 @@ The \acrshort{dt} supports up to three energy tariffs (F1, F2, F3), as defined b
     \label{fig:costs_matrix}
 \end{figure}
 
-The configuration used for the development of the \acrshort{dt} is shown in Code Sample~\ref{code:config}. Two energy tariffs are used with prices based on the \acrfull{pun} values for December 2023, which are the Single National Price. The \acrshort{pun} is calculated by the \acrfull{gme}\footnote{\url{https://www.mercatoelettrico.org/En/default.aspx} (visited on 2024, February 22)}, as the weighted average of the prices of the energy markets, and is used as a reference for the energy costs in Italy. The maximum power consumption is set to 3kW, which is the standard limit for the power supply in Italy.
+The configuration used for the development of the \acrshort{dt} is shown in Code Sample~\ref{code:config}. Two energy tariffs are used with prices based on the \acrfull{pun} for December 2023, which is the Single National Price. The \acrshort{pun} is calculated by the \acrfull{gme}\footnote{\url{https://www.mercatoelettrico.org}}, as the weighted average of the prices of the energy markets, and is used as a reference for the energy costs in Italy. The maximum power consumption is set to 3kW, which is the standard limit for the power supply in Italy.
 
 \section{Appliance and Routine Data}
 
@@ -127,7 +129,7 @@ The appliances in the hypothetical home and the routines defined by the end user
         \item \texttt{id}: a unique integer identifier for the mode;
         \item \texttt{name}: the mode name, such as \textit{intensive};
         \item \texttt{power\_consumption}: the average power consumption of the appliance in the mode, in Watts; 
-        \item \texttt{default\_duration} (optional): the default duration of the mode, which is used if the user does not specify a duration in the routine. If no default duration is specified, the mode is assumed to be running until the end of the day.
+        \item \texttt{default\_duration} (optional): the default duration of the mode in seconds, which is used if the user does not specify a duration in the routine. If not specified, the mode is assumed to be running until the end of the day.
     \end{itemize}
 \end{itemize}
 
@@ -144,7 +146,7 @@ Code Sample~\ref{code:routine_wash_everything} shows an example of a routine tha
     \begin{itemize}
         \item \texttt{id}: a unique integer identifier for the action;
         \item \texttt{appliance\_id}: the ID of the appliance that the action affects;
-        \item \texttt{duration} (optional): the duration of the mode, in minutes. If not specified, the default duration of the mode is used.
+        \item \texttt{duration} (optional): the duration of the mode, in seconds. If not specified, the default duration of the mode is used.
     \end{itemize}
 \end{itemize}
 
@@ -161,28 +163,32 @@ The \acrshort{dt} can create a \textit{state matrix} of the appliances throughou
     \label{fig:state_matrix}
 \end{figure}
 
-The state matrix is implemented using the \texttt{ndarray} class from the NumPy library~\parencite{harrisArrayProgrammingNumPy2020}, which is a n-dimensional array of integers. According to the Numpy N-Dimensional Array Reference\footnote{\url{https://numpy.org/doc/1.26/reference/arrays.ndarray.html}}, an instance of the \texttt{ndarray} class consists of a contiguous one-dimensional memory segment, which is combined with an indexing scheme to represent multidimensional arrays, mapping integers to the various elements that compose the memory block.
+The state matrix is implemented using the \texttt{ndarray} class from the NumPy library~\parencite{harrisArrayProgrammingNumPy2020}, which is a n-dimensional array. According to the Numpy N-Dimensional Array Reference\footnote{\url{https://numpy.org/doc/1.26/reference/arrays.ndarray.html}}, an instance of the \texttt{ndarray} class consists of a contiguous 1-D memory segment, which is combined with an indexing scheme to represent multidimensional arrays, mapping integers to the various elements that compose the memory block.
 
-Each row of the matrix corresponds to a minute of the day, and each column corresponds to an appliance, by using the appliance ID as the column index. For instance, the first column of the matrix (index $0$) corresponds to the appliance with index 0. The value of each cell is the ID of the operation mode in which the appliance is set at that minute. Given that in a day there are $24 \times 60 = 1440$ minutes, and the hypothetical home has 15 appliances, the state map is a $1440 \times 15$ matrix. The matrix type is \textit{uint8}, which can store integers from $0$ to $255$, which is sufficient to store the IDs of the operation modes of the appliances. The state matrix uses $1440 \times 15 \times 8 = 172800$ bits of memory, which corresponds to about $21$ kilobytes.
+Each row of the matrix corresponds to a minute of the day, and each column corresponds to an appliance, by using the appliance ID as the column index. For instance, the first column of the matrix (index $0$) corresponds to the appliance with ID equal to $0$. The value of each cell is the ID of the operation mode in which the appliance is set at that minute. Given that in a day there are $24 \times 60 = 1440$ minutes, and the hypothetical home has 15 appliances, the state map is a $1440 \times 15$ matrix. The matrix type is \textit{uint8}, meaning that each cell can store integers from $0$ to $255$, which is sufficient to store the IDs of the operation modes of the appliances. The state matrix uses $1440 \times 15 \times 8 = 172800$ bits of memory, which corresponds to about $21$ kilobytes.
 
 The state matrix makes it straightforward to calculate the consumption of an appliance at any time of the day. It is enough to index the matrix with the minute of the day and the appliance ID. The resulting value is the ID of the operation mode of the appliance at that time, and it can be used to get the energy consumption of the mode from the appliance's JSON file. To get the total energy consumption at any time of the day, it is enough to add the energy consumption of the individual appliances at that time.
 
 \section{Simulation of New Routines}\label{sec:simulation}
 
-When simulating the addition of a new routine, it may cause a conflict with the existing routines. It is assumed that the existing routines are already consistent and conflict-free. The \acrshort{dt} is capable of evaluating such conflicts and producing \textit{errors} or \textit{recommendations}, or both. An error occurs when a conflict creates an inconsistency among the routines, e.g. when two routines include actions that contradict each other, or that put the power draw over a maximum limit. Errors halt the simulation and prevent further evaluation. Recommendations are either warnings about minor conflicts that do not affect the consistency, or suggestions to improve the user experience or save energy. A recommendation does not interrupt the simulation and allows for further evaluation. This means that the digital twin can provide multiple recommendations for different conflicts, but at most one error is returned at a time.
+When simulating the addition of a new routine, it may cause a conflict with the existing routines. It is assumed that the existing routines are already consistent and conflict-free. The \acrshort{dt} is capable of evaluating such conflicts and producing \textit{errors} or \textit{recommendations}, or both. An error occurs when a conflict creates an inconsistency among the routines, e.g. when two routines include actions that contradict each other, or that put the power draw over a maximum limit. Errors halt the simulation and prevent further evaluation. Recommendations are either warnings about minor conflicts that do not affect the consistency, or suggestions to improve the user experience or save energy. A recommendation does not interrupt the simulation and allows for further evaluation. This means that the \acrshort{dt} can provide multiple recommendations for different conflicts.
 
-The expected conflict scenarios are the following:
-\begin{enumerate}[label={\textit{S\arabic*.}}, leftmargin=3.5em]
-    \item \textit{An appliance has conflicting operation modes in the same time interval}. This occurs when a simulated routine assigns an appliance a different operation mode than the one assigned by the existing routines in the same time interval. If the simulated routine assigns the same operation mode as the existing routines, there is no conflict. For instance, the AC is set to \textit{heat} from 8:00 to 12:00. A simulated routine that sets the AC to \textit{cold} from 10:00 to 11:00 causes a conflict. The digital twin rejects the simulated routine with an error that specifies the conflicting action and the existing routine and action. It also suggests deactivating the existing routine instead. This may be useful, for example, in weather conditions with sudden temperature changes, where the user may want to adjust the AC temporarily. If the simulated routine does not cause an inconsistency, e.g. it sets the AC to \textit{heat} from 11:00 to 13:00, then the digital twin accepts the simulated routine with a recommendation to modify the existing routine action to set \textit{heat} from 8:00 to 13:00.
-
-    \item \textit{The power consumption exceeds a maximum limit at any time}. The digital twin rejects any routine that causes the power consumption to go beyond the maximum limit at any point. This limit could be the maximum power supply before cut-off, e.g. $3kW$ in Italy. For example, if the microwave is in \textit{microwave mode}, the dishwasher is in \textit{intensive} mode, and the simulated routine sets the washing machine to \textit{cotton 60} mode at 14:00, the digital twin produces an error and advises a better start time for the washing machine.
-
-    \item \textit{A better start time can be determined}. The digital twin tries to find a more economical start time for each action of the simulated routine, using pre-set electricity costs. This is important, for example, if the user has a variable electricity tariff, where it is less expensive to run appliances at night. If the electricity cost is constant throughout the day, this step can be ignored. The digital twin evaluates each action of the simulated routing sequentially, taking into account the best start time of the previous actions. For instance, if the best start time of action 1 of the simulated routine is 15:30, the digital twin should use that as a reference when evaluating action 2.
-
-    \item \textit{An appliance is activated manually by the end user}. This scenario requires the digital twin to monitor the running state of appliances, in addition to the routines. Before executing any routine actions, the digital twin should check for conflicts with scenarios S1 and S2, using the current state of the appliances as well. If the scenarios produce an error, the conflicting actions should be prevented from running. Actions that are conflict-free can still be executed. Any recommendation produced can be displayed to the user to alert them and offer alternatives on what to do.
+The following recommendations can be returned by the \acrshort{dt}:
+\begin{enumerate}[label={R\arabic*.}, leftmargin=3.5em]
+    \item \textit{Change the start time of a routine}. The \acrshort{dt} can suggest a better start time that does not cause conflicts for a routine, based on the energy cost of starting each action at different times of the day. This is important, for example, if the user has a variable electricity tariff, where it is less expensive to run appliances at night. The \acrshort{dt} also calculates the monetary savings of starting the routine at the best start time, by comparing the cost of starting the routine at the best start time with the cost of starting the routine at the time given in the routine. The \acrshort{dt} returns the best start time and the monetary savings, if any.
+    \item \textit{Disable a routine}. The \acrshort{dt} suggests disabling a routine, if it causes a conflict with the existing routines, or if it causes the power consumption to exceed the maximum limit. The \acrshort{dt} returns the conflicting action and the existing routine and action, if any.
+    \item \textit{Join two routines}. The \acrshort{dt} suggests joining two routines that have overlapping actions, if the actions are not conflicting. The \acrshort{dt} returns the conflicting action and the existing routine and action, if any.
 \end{enumerate}
 
-The implementation of the digital twin developed for this thesis only covers conflicts S1-S4, while conflict S5 is left as a future development.
+The expected conflict scenarios are the following:
+\begin{enumerate}[label={C\arabic*.}, leftmargin=3.5em]
+    \item \textit{An appliance has conflicting operation modes in the same time interval}. This occurs when a simulated routine assigns an appliance a different operation mode than the one assigned by the existing routines in the same time interval. If the simulated routine assigns the same operation mode as the existing routines, there is no conflict. For instance, in the state matrix in Figure~\ref{fig:state_matrix} the AC is set to \textit{cool} from 16:30 to 21:20. A simulated routine that sets the AC to \textit{heat} from 17:00 to 20:00 causes a conflict. The \acrshort{dt} rejects the simulated routine with an error that specifies the conflicting action and the existing routine and action. It also returns two R2 recommendations, to  deactivate the existing routine or the simulated routine. This may be useful, for example, in weather conditions with sudden temperature changes, where the user may want to adjust the AC temporarily. If the simulated routine does not cause an inconsistency, e.g. it sets the AC to \textit{heat} from 14:00 to 16:30 then the \acrshort{dt} accepts the simulated routine with an R3 recommendation to modify the existing routine action to set \textit{heat} from 14:00 to 21:20. The \acrshort{dt} also evaluates whether a better start time can be determined for the actions of the simulated routine, and returns an R1 recommendation with the best start time and the monetary savings, if any.
+
+    \item \textit{The power consumption exceeds a maximum limit}. The \acrshort{dt} rejects any routine that causes the power consumption to go beyond the maximum limit at any point of the day. This limit could be the maximum power supply before cut-off, e.g. $3kW$ in Italy. For example, in the state matrix if Figure~\ref{fig:state_matrix} from 15:00 to 16:00 the dish washer, the fridge, the washing machine and one television are all active. If during this time interval the simulated routine starts another appliance in a high-consuming mode, such as the microwave in the \textit{grill} mode, the \acrshort{dt} produces an error and returns an R1 recommendation with a better start time for the washing machine.
+
+    \item \textit{An appliance is activated manually by the end user}. This scenario requires the \acrshort{dt} to monitor the running state of appliances, in addition to the routines. Before executing any routine actions, the \acrshort{dt} should check for conflicts with scenarios C1 and C2, using the current state of the appliances as well. If the scenarios produce an error, the conflicting actions of the routines should be prevented from running. Actions that are conflict-free can still be executed. Any recommendation produced can be displayed to the user to alert them and offer alternatives on what to do.
+\end{enumerate}
+The implementation of the \acrshort{dt} developed for this thesis only covers conflicts C1--C2, while conflict C3 is left as a future development.
 
 \begin{figure}
     \centering
@@ -191,7 +197,7 @@ The implementation of the digital twin developed for this thesis only covers con
     \label{fig:simulation_procedure}
 \end{figure}
 
-Figure~\ref{fig:simulation_procedure} shows the complete procedure for simulating the addition of a new routine. The procedure starts by creating a copy of the state matrix, using the \texttt{copy} method from NumPy. The new matrix is then updated with the new appliance states from the simulated routine. The procedure then checks for the conflicts described above, and stops if there is an error. Figure~\ref{fig:simulated_consumption_matrix} shows an example of a simulated matrix, which is obtained by adding a new routine to the matrix in Figure~\ref{fig:state_matrix}. The \texttt{/simulate} endpoint of the \acrshort{api} returns the list of recommendations and errors, if any. The other simulation endpoints of the \acrshort{api} do not return any recommendation, but only compute consumption values on the new state matrix. Any error is returned as well.
+Figure~\ref{fig:simulation_procedure} shows the high-level procedure for simulating the addition of a new routine. The procedure starts by creating a copy of the state matrix, using the \texttt{copy} method from NumPy. The new matrix is then updated with the new appliance states from the simulated routine. The procedure then checks for the conflicts described above, and stops if there is an error. Conflict C1 is verified by checking if a cell of the original state matrix containing the ID of an operation mode that is not \textit{off} or a \textit{suspended} mode is overridden to another value. Conflict C2 is checked by calculating the total consumption for every row of the state matrix and comparing it to the maximum limit. If any of these conflicts happen, an error is passed to the following steps. Otherwise, the simulated state matrix is created successfully. Figure~\ref{fig:simulated_consumption_matrix} shows an example of a simulated matrix, which is obtained by adding a new routine to the matrix in Figure~\ref{fig:state_matrix}. The final steps depend on the simulation endpoint that was called. The \texttt{/simulate} endpoint of the \acrshort{api} additionally verifies conflict C3, before returning the list of recommendations and an error, if any was returned by the previous steps. The \texttt{/simulate/consumption/*} endpoints of the \acrshort{api} do not return any recommendation, but only compute consumption values on the new state matrix if no error was returned by the previous steps. Otherwise, they return such error with no recommendation. 
 
 \begin{figure}
     \centering
@@ -200,7 +206,9 @@ Figure~\ref{fig:simulation_procedure} shows the complete procedure for simulatin
     \label{fig:simulated_consumption_matrix}
 \end{figure}
 
-To find the best start time according to S3, the \acrshort{dt} uses a brute force approach, by evaluating the energy cost of starting the simulated routine at every minute of the day, and choosing the one with the lowest cost. The energy cost of a routine is calculated by adding the cost of starting each action at the chosen time, using the energy rates from the configuration file. This operation is repeated $1440$ times, once for every minute of the day. The \acrshort{dt} then returns the best start time, and the monetary savings of starting the routine at that time. The monetary savings are calculated by comparing the cost of starting the routine at the best start time with the cost of starting the routine at the time given in the routine.
+To find the best start time according to conflict C3, the \acrshort{dt} uses a brute force approach, by evaluating the energy cost of starting the simulated routine at every minute of the day, and choosing the one with the lowest cost. The energy cost of a routine is calculated by adding the cost of starting each action at the chosen time, using the energy rates from the configuration file. This operation is repeated $1440$ times, once for every minute of the day. The \acrshort{dt} then returns the best start time, and the monetary savings of starting the routine at that time. The monetary savings are calculated by comparing the cost of starting the routine at the best start time with the cost of starting the routine at the time given in the routine.
+
+Having only a single endpoint that evaluates the recommendations allows to improve the performance of frontend calls, taking into account that the \acrshort{api} is stateless. For example, if the frontend wants to get recommendations for a routine and display a number of consumption values, several \acrshort{api} calls would be required. Calculating the recommendations for each call could be expensive. Instead, the frontend should call the \texttt{/simulate} endpoint once to get the recommendations, and then call the \texttt{/simulate/consumption/*} endpoints to get the consumption values.
 
 \section{Frontend}
 
@@ -219,7 +227,7 @@ The application is also \textit{responsive}, meaning that it adjusts to differen
 
 \subsection{Header Section}
 
-The header of the frontend application, displayed in Figure~\ref{fig:frontend_header}, contains the the title and logo of the application, which is derived from Material Icons\footnote{\url{https://fonts.google.com/icons}}. There are two buttons on the right side of the header, which enable the user to switch between light and dark modes, and to access the \acrshort{api} documentation.
+The header of the frontend application, displayed in Figure~\ref{fig:frontend_header}, contains the title and logo of the application, which is derived from Material Icons\footnote{\url{https://fonts.google.com/icons}}. There are two buttons on the right side of the header, which enable the user to switch between light and dark modes, and to access the \acrshort{api} documentation.
 
 \begin{figure}
     \centering
@@ -244,7 +252,7 @@ The statistics section, shown in Figure~\ref{fig:frontend_statistics}, provides 
     \label{fig:frontend_statistics}
 \end{figure}
 
-\subsection{Simulate Section}
+\subsection{Simulation Section}
 
 The simulate section, depicted in Figure~\ref{fig:frontend_simulate}, allows the user to simulate the effect of adding a new routine to the home, and to detect any potential conflicts with the existing routines. The user can choose from three predefined routines, which illustrate the different outcomes of the simulation process. The routines are presented in a tab interface, which facilitates the comparison and selection of the desired routine. The results of the simulation are shown at the bottom of the section.
 
@@ -255,7 +263,7 @@ The simulate section, depicted in Figure~\ref{fig:frontend_simulate}, allows the
     \label{fig:frontend_simulate}
 \end{figure}
 
-The "No Conflict" tab, shown in Figure~\ref{fig:frontend_simulate}, displays the details of the "Warm up home in the morning" routine, which activates the air conditioning and the boiler at 7:00 AM. By clicking on the "Simulate routine addition" button, the user can send a \texttt{POST} request to the \texttt{/simulate} endpoint of the \acrshort{api}, and see the result of the simulation in Figure~\ref{fig:frontend_no_conflict_result}. The simulation indicates that the routine is accepted without any conflicts. A graph, which uses the data from the \texttt{/simulate/consumption/total} endpoint of the \acrshort{api}, compares the power consumption with and without the simulated routine. A recommendation to change the start time of the routine to a more optimal one is also provided, along with the projected savings over 30 days.
+The "No Conflict" tab, shown in Figure~\ref{fig:frontend_simulate}, displays the details of the "Warm up home in the morning" routine, which activates the air conditioning and the boiler at 7:00. By clicking on the "Simulate routine addition" button, the user can send a \texttt{POST} request to the \texttt{/simulate} endpoint of the \acrshort{api}, and see the result of the simulation in Figure~\ref{fig:frontend_no_conflict_result}. The simulation indicates that the routine is accepted without any conflicts. A graph, which uses the data from the \texttt{/simulate/consumption/total} endpoint of the \acrshort{api}, compares the power consumption with and without the simulated routine. A recommendation to change the start time of the routine to a more optimal one is also provided, along with the projected savings over 30 days.
 
 \begin{figure}
     \centering
@@ -264,7 +272,7 @@ The "No Conflict" tab, shown in Figure~\ref{fig:frontend_simulate}, displays the
     \label{fig:frontend_no_conflict_result}
 \end{figure}
 
-The "Party time" routine, shown in Figure~\ref{fig:frontend_max_power_exceeded}, is designed to test the scenario where the power consumption surpasses the maximum limit of 3kW. It turns on the air conditioning, the dishwasher, the washing machine, and the microwave at 10:00 AM. The simulation results are displayed in Figure~\ref{fig:frontend_max_power_exceeded_result}. The simulation shows an error, due to conflict S2, and suggests disabling either the simulated routine or an existing routine that consumes a lot of power. No recommendation to change the start time of the routine is given, because the routine would always exceed the maximum limit regardless of the time.
+The "Party time" routine, shown in Figure~\ref{fig:frontend_max_power_exceeded}, is designed to test the scenario where the power consumption surpasses the maximum limit of 3kW. It turns on the air conditioning, the dishwasher, the washing machine, and the microwave at 10:00. The simulation results are displayed in Figure~\ref{fig:frontend_max_power_exceeded_result}. The simulation shows an error, due to conflict C2, and suggests disabling either the simulated routine or an existing routine that consumes a lot of power. No recommendation to change the start time of the routine is given, because the routine would always exceed the maximum limit regardless of the time.
 
 \begin{figure}
     \centering
@@ -280,7 +288,7 @@ The "Party time" routine, shown in Figure~\ref{fig:frontend_max_power_exceeded},
     \label{fig:frontend_max_power_exceeded_result}
 \end{figure}
 
-The "Heavy-duty wash" routine, shown in Figure~\ref{fig:frontend_conflicting_modes}, is designed to create a conflict with an existing routine. It sets the washing machine to the \textit{cotton 90} mode at 14:00. However, another routine already sets the washing machine to the \textit{cotton 30} mode at the same time. The simulation results are shown in Figure~\ref{fig:frontend_conflicting_modes_result}. The simulation reports an error, due to conflict S1, and offers two recommendations to disable either of the conflicting routines. A recommendation to change the start time of the routine to a more suitable one is also given, along with the projected savings.
+The "Heavy-duty wash" routine, shown in Figure~\ref{fig:frontend_conflicting_modes}, is designed to show a conflict with an existing routine. It sets the washing machine to the \textit{cotton 90} mode at 14:00. However, another routine already sets the washing machine to the \textit{cotton 30} mode at the same time. The simulation results are shown in Figure~\ref{fig:frontend_conflicting_modes_result}. The simulation reports an error, due to conflict C1, and offers two recommendations to disable either of the conflicting routines. A recommendation to change the start time of the routine to a more suitable one is also given, along with the projected savings.
 
 \begin{figure}
     \centering

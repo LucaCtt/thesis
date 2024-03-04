@@ -1,6 +1,6 @@
 \chapter{Background}\label{ch:background}
 
-The following sections provide an overview of the main concepts and technologies that are relevant to the work presented in this thesis.
+The following sections provide an overview of the main concepts and technologies that are relevant to the work presented in this thesis: \acrshort{dt}s, smart homes, and automations for smart devices.
 
 \section{Digital Twins}
 
@@ -26,7 +26,7 @@ The term \textit{digital twin} was coined by Michael Grieves in 2002, in the con
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/digital_twins/dt_model_grieves.png}
-    \caption[Grieves' digital twin model]{Grieves' digital twin model. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Research Background} section, CC-BY 4.0 license}
+    \caption[Grieves' \acrshort{dt} model]{Grieves' \acrshort{dt} model. From \textcite{barricelliSurveyDigitalTwin2019}, \textit{Research Background} section, CC-BY 4.0 license}
     \label{fig:grieves_digital_twin}
 \end{figure}
 
@@ -35,27 +35,6 @@ Building on Grieves' idea, \textcite{framlingProductAgentsHandling2003} proposed
 \acrshort{dt}s garnered much interest in the aerospace and defense industries~\parencite{negriReviewRolesDigital2017}. NASA explored \acrshort{dt}s as a way to save costs and resources for its space missions. Their study resulted in a roadmap that validated the value of \acrshort{dt}s in enhancing performance in the aviation domain. They described the DT as ``an integrated multi-physics, multi-scale, probabilistic simulation of a vehicle or system that uses the best available physical models, sensor updates, fleet history, etc., to mirror the life of its flying twin. The \acrshort{dt} is ultra-realistic and may consider one or more important and interdependent vehicle systems, including propulsion/energy storage, avionics, life support, vehicle structure, thermal management/TPS, etc.''~\parencite{shaftoModelingSimulationInformation2010}. The U.S. Air Force also created the \acrfull{adt}, a computational model of individual aircrafts, which aimed to improve the way U.S. Air Force aircrafts were maintained over their entire lifecycle by generating personalized structural management plans~\parencite{tuegelAirframeDigitalTwin2012,gockelChallengesStructuralLife2012}.
 
 Moreover, \acrshort{dt}s are also a key element of Industry 4.0~\parencite{brettelHowVirtualizationDecentralization2014,hermannDesignPrinciplesIndustrie2016,vachalekDigitalTwinIndustrial2017,negriReviewRolesDigital2017}, where they are applied to monitor and optimize the performance of manufacturing systems, and to facilitate the development of new products and services. The \acrshort{dt} is a catalyst for the digital transformation of the manufacturing industry, and it is a vital component of the smart factory \parencite{mabkhotRequirementsSmartFactory2018}.
-
-\iffalse
-    \subsection{Characteristics of Digital Twins}
-
-    Seamless and reliable communication is fundamental to \acrshort{dt} functionality. Both physical and virtual twins require networking devices to facilitate continuous data exchange, achieved either through direct physical connections or indirect cloud-based networks. This facilitates a constant flow of information from the physical twin, which describes the physical twin status and change with time along its lifecycle, along with dynamic environment data describing the surrounding environment status. Furthermore, the \acrshort{dt} actively transmits predictions for maintenance, optimizations, insights, and recommendations for improved function to the physical twin, human specialists, and to other \acrshort{dt}s in its environment. As such, three key communication processes must be designed:
-
-    \begin{enumerate}
-        \item Physical-\acrshort{dt}. This direct exchange ensures real-time synchronization between the physical system and its digital representation.
-        \item \acrshort{dt}-to-\acrshort{dt}: This enables collaboration and knowledge sharing between multiple \acrshort{dt}s within the interconnected environment.
-        \item \acrshort{dt}-Expert: User-friendly interfaces facilitate interaction and operation of the \acrshort{dt} by domain experts, maximizing the value derived from this data-driven technology.
-    \end{enumerate}
-
-    The \acrshort{dt} relies on a robust data storage system to house the continuously streamed sensor data reflecting the real-time status and changes of the physical twin.
-    It also memorizes historical static data, which reflect the physical twin memory and record historical information provided by human expertise or by past actions, and descriptive static data, that captures essential, unchanging characteristics of the physical twin. To comprehend and formalize this diverse data, the \acrshort{dt} leverages proper \textit{ontologies}, i.e. shared, machine understandable vocabularies for information exchange among dispersed agents (e.g. humans and different machines), ensuring consistent interpretation and efficient utilization~\parencite{negriReviewRolesDigital2017}.
-
-    Given the complexity of captured data, the \acrshort{dt} employs techniques for high-dimensional data (de-)coding and analysis, which are tailored to process and analyze complex, multi-dimensional data structures. It also requires data fusion algorithms, to integrate data from various sources like sensors and historical records, providing a holistic understanding of the physical system.
-
-    The \acrshort{dt} includes various \acrshort{ai} algorithms, whose predictive capabilities are constantly refined. Supervised and/or unsupervised machine learning models to classify and categorize data points based on past observations and known patterns. Their predictive capability is refined as they process the continuously received sensed data from the physical twin and the surrounding environment. Feature selection and extraction methods are used to reduce the data dimensionality while keeping the most informative data, enahncing computational efficiency.
-
-    Finally, the \acrshort{dt} has self-adaptation and self-parametrization capabilities, to adjust its internal parameters to keep pace with the evolving physical twin throughout its lifecycle. It also exploits predictive analytics to predict future statuses, important changes, and to recommend optimal actions and interventions. When making future predictions, it must take into account uncertainties in the data. At any time, it should offer a real-time view of the physical system's condition, and enable simulation and exploration of potential \textit{what-if} scenarios under various conditions, supporting informed decision-making~\parencite{boschertDigitalTwinSimulation2016}.
-\fi
 
 \subsection{Design of Digital Twins}\label{sec:dt_design}
 
@@ -118,7 +97,7 @@ Another domain where \acrshort{dt}s can be applied in smart homes is energy mana
 
 \section{Automations for Smart Devices}
 
-Smart home control devices, such as Google Nest Mini, Amazon Echo Show, and Apple HomePod, are becoming more and more popular and accessible in recent years. They allow users to manage their home's \acrfull{iot} ecosystem, which consists of various smart devices, social networks, applications, recommender systems, and users~\parencite{barricelliDesigningEndUserDevelopment2015}. These smart devices embed electronic components that enable user interaction and control. For example, by applying \acrshort{iot} to the smart home, users can remotely or automatically adjust the lights, televisions, thermostat, shutters, locks, humidity sensors, and other smart objects in their home~\parencite{kortuemSmartObjectsBuilding2010,wuRespectChangeUser2017}. In the current era of \acrshort{iot}, their development has been recognized as having significant potential to create an interactive energy management system for homes~\parencite{graditiInnovativeControlLogics2015}.
+Smart home control devices, such as Google Nest Mini, Amazon Echo Show, and Apple HomePod, are becoming more and more popular and accessible in recent years. They allow users to manage their home's \acrshort{iot} ecosystem, which consists of various smart devices, social networks, applications, recommender systems, and users~\parencite{barricelliDesigningEndUserDevelopment2015}. These smart devices embed electronic components that enable user interaction and control. For example, by applying \acrshort{iot} to the smart home, users can remotely or automatically adjust the lights, televisions, thermostat, shutters, locks, humidity sensors, and other smart objects in their home~\parencite{kortuemSmartObjectsBuilding2010,wuRespectChangeUser2017}. In the current era of \acrshort{iot}, their development has been recognized as having significant potential to create an interactive energy management system for homes~\parencite{graditiInnovativeControlLogics2015}.
 
 To meet the diverse and changing needs of end users, smart home control devices should provide them with the ability to personalize their smart home. The term \textit{end users} refers to people who are not expert in programming or computer technologies, but who use computer systems for their daily activities, such as work or entertainment. Therefore, \acrfull{eud} techniques are employed to facilitate this personalization. \acrshort{eud} can be described as “the set of methods, techniques, tools, and socio-technical environments that allow end users to act as professionals in those ICT-related domains in which they are not professionals, by creating, modifying, extending and testing digital artifacts without requiring knowledge in traditional software engineering techniques”~\parencite{barricelliEnduserDevelopmentEnduser2019}.
 

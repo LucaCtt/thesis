@@ -100,6 +100,20 @@
 \fancyhead[L]{\nouppercase \leftmark}
 \fancyfoot[C]{\thepage}
 
+\makeatletter
+\renewcommand\paragraph{%
+  \@startsection{paragraph}
+    {4}
+    {\z@}
+    {3.25ex \@plus1ex \@minus.2ex}
+    {-1em}
+    {\normalfont\normalsize\bfseries\maybe@addperiod}%
+}
+\newcommand{\maybe@addperiod}[1]{%
+  #1\@addpunct{.}%
+}
+\makeatother
+
 % Info documento
 \title{Study and Development of a Digital Twin for the Simulation of User-Created Automations in a Green Smart Home}
 \author{Luca Cotti}

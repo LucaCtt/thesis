@@ -1,6 +1,6 @@
 \chapter{Hypothetical Home}\label{ch:hypothetical_home}
 
-An hypothetical home was designed as a starting point for the creation of the \acrshort{dt}. A number of appliance types were chosen to be introduced into the home, based on their commonality in European households and their availability in the GREEND and UK-DALE datasets. These two datasets were selected among the ones studied (see Chapter~\ref{ch:analysis_of_smart_home_datasets}) because they provide a large number of appliances, and they contain data about European households. This is significant to minimize the geographic variations in appliance usage patterns and to produce results that can be relevant for Italian households. The floor plan of the home is shown in Figure~\ref{fig:home_floor_plan}, showing the location of the following chosen appliances:
+An hypothetical home was designed as a starting point for the creation of the \acrshort{dt}. A number of appliance types were chosen to be introduced into the home, based on their commonality in European households and their availability in the GREEND and UK-DALE datasets. These two datasets were selected among the ones studied (see Chapter~\ref{ch:datasets}) because they provide a large number of appliances, and they contain data about European households. This is significant to minimize the geographic variations in appliance usage patterns and to produce results that can be relevant for Italian households. The floor plan of the home is shown in Figure~\ref{fig:home_floor_plan}, showing the location of the following chosen appliances:
 \begin{itemize}
   \item a fridge with a combined freezer;
   \item a washing machine;
@@ -45,7 +45,7 @@ For each appliance type, a specific appliance studied in one of the buildings in
   \label{tab:appliances_details}
 \end{table}
 
-A limitation of both the GREEND and UK-DALE datasets is that they do not record the operation mode of appliances at a given time. This information is required to assign a specific consumption value to the operation modes and to estimate their duration. The other datasets introduced in Chapter~\ref{ch:analysis_of_smart_home_datasets} that do provide this type of information are either too imprecise about the start/end time or limited in the number of appliances they record.
+A limitation of both the GREEND and UK-DALE datasets is that they do not record the operation mode of appliances at a given time. This information is required to assign a specific consumption value to the operation modes and to estimate their duration. The other datasets introduced in Chapter~\ref{ch:datasets} that do provide this type of information are either too imprecise about the start/end time or limited in the number of appliances they record.
 
 A possible solution is identifying the operation mode of appliances from the power consumption data using unsupervised learning methods. A naive approach to doing so is clustering the raw energy values: this can work for simple appliances, such as lamps or televisions, but not for complex ones with \textit{operation cycles}, such as fridges or washing machines. For example, a washing machine might draw no power for a short period while the clothes soak, and then use a lot of power for a spin cycle. Both of these cycles are part of the same operation mode, but there is no way to recognize this when clustering the raw data. Furthermore, methods based on raw data are also susceptible to noisy points and outliers; thus, they often lead to poor clustering results~\parencite{castangiaClusteringApplianceOperation2023}.
 
@@ -281,7 +281,7 @@ Second, the duration of each operation mode is estimated by calculating the aver
 
 \begin{table}[hbt]
   \centering
-  \resizebox{.5\textwidth}{!}{%
+  \resizebox{.38\textwidth}{!}{%
     \begin{tblr}{lcc}
       \hline
       \textbf{Appliance type}             & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \hline
