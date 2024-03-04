@@ -27,28 +27,28 @@ To address RQ1, two types of datasets related to the Smart Home subject that adh
     \item \acrfull{adl} datasets, which contain data about the actions of building occupants. Datasets of this type usually gather data from captured images or videos, environmental sensors, devices worn by occupants, or appliance usage.
     \item Power consumption datasets, that encompass data about the energy use in buildings. In the literature, power consumption datasets are often distinguished in the appliance-level or aggregated-level categories. The former traces power consumption of individual devices in buildings, while the latter provides the power consumption of households as a whole.
 \end{itemize}
-From the objectives for this thesis introduced in Chapter~\ref{ch:introduction}, it is clear that the datasets of utmost interest for this thesis, addressing RQ2, are power consumption datasets. In particular, datasets that contain appliance-level data are the most appropriate. \acrshort{adl} datasets are not relevant for this thesis, and as such for the remainder of this chapter only power consumption datasets will be considered.
+From the objectives for this thesis introduced in Chapter~\ref{ch:introduction}, it is clear that the datasets of utmost interest for this thesis, addressing RQ2, are power consumption datasets. In particular, datasets that contain appliance-level data are the most appropriate.\@ \acrshort{adl} datasets are not relevant for this thesis, and as such for the remainder of this chapter only power consumption datasets will be considered.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=.9\textwidth]{images/taxonomy_power_consumption.jpg}
-    \caption[Applications of power consumption datasets]{Applications of power consumption datasets. From~\textcite{himeurBuildingPowerConsumption2020}, page 5, CC-BY 4.0 license}
+    \caption[Applications of power consumption datasets]{Applications of power consumption datasets. From~\textcite{himeurBuildingPowerConsumption2020}, page 5, CC-BY 4.0 license}%
     \label{fig:applications_power_consumption_datasets}
 \end{figure}
 
 In~\parencite{himeurBuildingPowerConsumption2020}, various applications for power consumption datasets are proposed, of which a comprehensive overview is illustrated in Figure~\ref{fig:applications_power_consumption_datasets}. It is worth noting that these applications are not mutually exclusive, and as such a single dataset may be appropriate for several uses. 
 \begin{enumerate}[label={\textit{A\arabic*.}}, leftmargin=3.5em]
-    \item \textit{Energy Saving}. Investigating energy-saving measures in buildings can help reduce bills and lower carbon emissions, e.g. by deriving specific recommendations using \acrfull{ml} techniques to promote energy efficiency behaviors. Energy-saving applications require the dataset to include data from various sources, including energy sub-meters, ambient condition sensors and climate sources.
+    \item \textit{Energy Saving}. Investigating energy-saving measures in buildings can help reduce bills and lower carbon emissions, e.g.\ by deriving specific recommendations using \acrfull{ml} techniques to promote energy efficiency behaviors. Energy-saving applications require the dataset to include data from various sources, including energy sub-meters, ambient condition sensors and climate sources.
 
     \item \textit{Appliance Recognition}. Identifying devices' power usage patterns can help in discriminating their operating conditions. This information can be used, for example, to recognize unattended appliances.
 
     \item \textit{Occupancy Detection}. By analyzing power consumption profiles and environmental factors like temperature and humidity, it is possible to detect individuals' presence in specific building areas. The assessment of occupancy detection requires datasets with either aggregated or disaggregated power draws, along with a description of consumption scenarios. In particular, the presence of user-driven devices is needed to assume presence in the environment~\parencite{monacchiGREENDEnergyConsumption2014}.
 
-    \item \textit{Preference Detection}, Analyzing energy usage profiles helps evaluate the preferences of occupants. \acrshort{ml} techniques interpret habits related to appliance usage of individuals, understanding their consumption priorities or creating contexts that satisfy their well-being. Datasets for preference detection require appliance-level power consumption.
+    \item \textit{Preference Detection}, Analyzing energy usage profiles helps evaluate the preferences of occupants.\@ \acrshort{ml} techniques interpret habits related to appliance usage of individuals, understanding their consumption priorities or creating contexts that satisfy their well-being. Datasets for preference detection require appliance-level power consumption.
 
-    \item \textit{Energy Disaggregation}. Also named \acrfull{nilm} in the literature, it consists in separating overall power consumption into signals for individual electrical devices. \acrshort{ml} models can be used to learn the particular power consumption patterns of single devices, to discern the contribution of single appliances to the total energy use when only the aggregate consumption data is given. Datasets for energy disaggregation need to include both aggregated and appliance-level consumption fingerprints, to compare the results obtained from disaggregation models with individual patterns of devices.
+    \item \textit{Energy Disaggregation}. Also named \acrfull{nilm} in the literature, it consists in separating overall power consumption into signals for individual electrical devices.\@ \acrshort{ml} models can be used to learn the particular power consumption patterns of single devices, to discern the contribution of single appliances to the total energy use when only the aggregate consumption data is given. Datasets for energy disaggregation need to include both aggregated and appliance-level consumption fingerprints, to compare the results obtained from disaggregation models with individual patterns of devices.
 
-    \item \textit{Demand Prediction}. \acrshort{ml} algorithms can be used to forecast power demand, aiding public authorities, project managers, and homeowners in energy-efficient planning. Directives and mechanisms can be established in advance with a view to reducing load consumption of equipment and appliances inside infrastructures. Energy demand prediction benefits from power consumption data gathered over an extended collection period.
+    \item \textit{Demand Prediction}.\@ \acrshort{ml} algorithms can be used to forecast power demand, aiding public authorities, project managers, and homeowners in energy-efficient planning. Directives and mechanisms can be established in advance with a view to reducing load consumption of equipment and appliances inside infrastructures. Energy demand prediction benefits from power consumption data gathered over an extended collection period.
 
     \item \textit{Anomaly Detection}. Early detection methods can identify failures in devices and anticipate abnormal energy usage values. For anomaly detection, labeled datasets annotating normal and anomaly consumption footprints are needed. This application is out-of-scope for this thesis, and no dataset for anomaly detection will be analyzed.
 \end{enumerate}
@@ -69,7 +69,7 @@ Released in 2011, the \acrlong{redd}\footnote{\url{https://tokhub.github.io/dbec
 
 \subsection{HES}
 
-Resulting from a UK government survey on 251 houses conducted between 2010 and 2011, the \acrlong{hes}\footnote{\url{https://www.gov.uk/government/publications/household-electricity-survey}} was released in 2012~\parencite{zimmermannHouseholdElectricitySurvey2012}. While 26 houses were monitored for a year, the rest were monitored for periods of one month at intervals throughout the year. \acrshort{hes}'s limitation is its 2-minute sampling frequency, which makes it inadequate for energy disaggregation as it will be difficult to differentiate between individual devices and occurrences \parencite{himeurBuildingPowerConsumption2020}. However, the dataset provides valuable property information for monitored homes, including building nature, size, room number, and occupants.
+Resulting from a UK government survey on 251 houses conducted between 2010 and 2011, the \acrlong{hes}\footnote{\url{https://www.gov.uk/government/publications/household-electricity-survey}} was released in 2012~\parencite{zimmermannHouseholdElectricitySurvey2012}. While 26 houses were monitored for a year, the rest were monitored for periods of one month at intervals throughout the year.\@ \acrshort{hes}'s limitation is its 2-minute sampling frequency, which makes it inadequate for energy disaggregation as it will be difficult to differentiate between individual devices and occurrences \parencite{himeurBuildingPowerConsumption2020}. However, the dataset provides valuable property information for monitored homes, including building nature, size, room number, and occupants.
 
 \subsection{Tracebase}
 
@@ -94,15 +94,15 @@ The UK-DALE dataset~\parencite{kellyUKDALEDatasetDomestic2015}\footnote{\url{htt
 
 \subsection{AMPds2}
 
-The \acrlong{ampds2}\footnote{\url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FIE0S4}}~\parencite{makoninElectricityWaterNatural2016} captures electricity, water, and natural gas consumption in a single house near Vancouver, Canada, over two years. The dataset provides various measurement characteristics for electricity such as active, reactive, and apparent power, and also includes environmental and utility billing data for cost analysis. \acrshort{ampds2} data is pre-cleaned, with algorithmically filled missing data to maintain a continuous frequency of readings (once per minute).
+The \acrlong{ampds2}\footnote{\url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FIE0S4}}~\parencite{makoninElectricityWaterNatural2016} captures electricity, water, and natural gas consumption in a single house near Vancouver, Canada, over two years. The dataset provides various measurement characteristics for electricity such as active, reactive, and apparent power, and also includes environmental and utility billing data for cost analysis.\@ \acrshort{ampds2} data is pre-cleaned, with algorithmically filled missing data to maintain a continuous frequency of readings (once per minute).
 
 \subsection{EMBED}
 
-The \acrlong{embed}\footnote{\url{http://embed-dataset.org}}~\parencite{jazizadehEMBEDDatasetEnergy2018} dataset includes aggregate power measurements and plug load data of different appliances for three residential units in Los Angeles, USA. Collected over periods of two to four weeks, the dataset comprises raw current and voltage waveforms along with processed power metrics. \acrshort{embed} is suitable for comparing event-based and non-event-based methodologies, providing fully labeled disaggregation data whereby separate labels are identified for different transition states for each appliance.
+The \acrlong{embed}\footnote{\url{http://embed-dataset.org}}~\parencite{jazizadehEMBEDDatasetEnergy2018} dataset includes aggregate power measurements and plug load data of different appliances for three residential units in Los Angeles, USA.\@ Collected over periods of two to four weeks, the dataset comprises raw current and voltage waveforms along with processed power metrics.\@ \acrshort{embed} is suitable for comparing event-based and non-event-based methodologies, providing fully labeled disaggregation data whereby separate labels are identified for different transition states for each appliance.
 
 \subsection{PLAID}
 
-The \acrlong{plaid}\footnote{\url{https://doi.org/10.6084/m9.figshare.10084619.v2}}~\parencite{medicoVoltageCurrentMeasurement2020} contains records of electrical voltage and current from domestic appliances collected at a high sampling frequency of 30 kHz. This is the highest resolution frequency used in existing building power consumption datasets when collecting load profiles \parencite{himeurBuildingPowerConsumption2020}. All appliances are monitored individually, and the data traces captured over a few seconds include the activation of the appliances. \acrshort{plaid} includes 1876 records from 17 appliance types comprising 330 different makes and models, collected at 65 locations in Pittsburgh, Pennsylvania, USA. Additionally, \acrshort{plaid} covers combined operation records (i.e., measurements obtained when multiple appliances were active simultaneously), and multiple operating modes were monitored for some appliances. The dataset does not include traces of active and reactive power.
+The \acrlong{plaid}\footnote{\url{https://doi.org/10.6084/m9.figshare.10084619.v2}}~\parencite{medicoVoltageCurrentMeasurement2020} contains records of electrical voltage and current from domestic appliances collected at a high sampling frequency of 30 kHz. This is the highest resolution frequency used in existing building power consumption datasets when collecting load profiles \parencite{himeurBuildingPowerConsumption2020}. All appliances are monitored individually, and the data traces captured over a few seconds include the activation of the appliances.\@ \acrshort{plaid} includes 1876 records from 17 appliance types comprising 330 different makes and models, collected at 65 locations in Pittsburgh, Pennsylvania, USA.\@ Additionally, \acrshort{plaid} covers combined operation records (i.e., measurements obtained when multiple appliances were active simultaneously), and multiple operating modes were monitored for some appliances. The dataset does not include traces of active and reactive power.
 
 \subsection{SynD}
 
@@ -116,8 +116,8 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
     \centering
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{lllp{.1\textwidth}l>{\centering}p{.1\textwidth}c>{\centering}p{.14\textwidth}p{.65\textwidth}}
-            \hline
-            \textbf{\#} & \textbf{Dataset} & \textbf{Year} & \textbf{Location} & \textbf{Type} & \textbf{\# Houses} & \textbf{Period} & \textbf{\# Appliances} & \textbf{Appliances} \\ \hline
+            \toprule
+            \textbf{\#} & \textbf{Dataset} & \textbf{Year} & \textbf{Location} & \textbf{Type} & \textbf{\# Houses} & \textbf{Period} & \textbf{\# Appliances} & \textbf{Appliances} \\ \midrule
             1           & REDD             & 2011          & USA               & Real-world    & 6                  & 119 days        & 19                     & Furnace, outlets, washing machine, fridge, dishwasher, lights, duct heater, dryer, microwave, AC, egauge, GFI panel, tub, garage door, sockets \\
             2           & HES              & 2011          & UK                & Real-world    & 251                & 1 year          & 13                     & Fridge, washing machine, washing dryer, dishwasher, oven, cooker, hob, microwave, kettle, lights, audiovisual site, TV, space heating \\
             3           & Tracebase        & 2012          & Australia         & Real-world    & 15                 &                 & 39                     & DVD player, hifi-amplifier, subwoofer, vacuum cleaner, desk lamp, monitor, alarm clock, amplifier, coffeemaker, breadcutter, CD player, charger, stove, TV, dishwasher, ethernet Switch, freezer, iron, hair dryer, oven, PC, laptop, toaster, USB hard drive, USB Hub, video projector, washing machine, water boiler, water fountain, water kettle, lights, play station, printer, projector, refrigerator, remote desktop, router, solar thermal system \\
@@ -127,12 +127,12 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
             6           & GREEND           & 2014          & Austria, Italy    & Real-world    & 9                  & 1 year          & 27                     & Coffee machine, washing machine, radio, water kettle, fridge, dishwasher, lamp, TV, vacuum cleaner, microwave, amplifier, lights, NAS, notebook, bread machine, outlets, hair dryer, computer, oven, scanner, printer, hood, toaster, stove, iron, decoder, ADSL modem \\
             7           & UK-DALE          & 2015          & UK                & Real-world    & 5                  & 4.3 years       & 22                     & Fridge freezer, home theatre PC, dishwasher, washer dryer, kettle, AC, lamp, boiler,  breadmaker, soldering iron, computer monitor, toaster, TV, vacuum cleaner, printer, ethernet switch, immersion heater, laptop, microwave, rice cooker, hair dryier, game console \\
             8           & AMPds2           & 2016          & Canada            & Real-world    & 1                  & 2 years         & 11                     & Sockets, lights, clothes dryer, clothes washer, dishwasher, fridge, furnace, garage, heat pump, instant hot water unit, TV, oven \\
-            9           & EMBED            & 2018          & USA               & Real-world    & 3                  & 2-4 weeks       & 21                     & Refrigerator, washing machine, central AC, window AC, toaster, kettle, tv, iron, hair dryer, hair iron, lcd monitor, laptop, lights, grill, coffee maker, xbox, bathroom fan, water heater, surface tablet, microwave, electric range \\
+            9           & EMBED            & 2018          & USA               & Real-world    & 3                  & 2--4 weeks       & 21                     & Refrigerator, washing machine, central AC, window AC, toaster, kettle, tv, iron, hair dryer, hair iron, lcd monitor, laptop, lights, grill, coffee maker, xbox, bathroom fan, water heater, surface tablet, microwave, electric range \\
             10          & PLAID            & 2018          & USA               & Real-world    & 65                 & 3 months        & 16                     & AC, blender, coffeemaker, compact fluorescent lamp, fan, fridge, hair dryer, hair iron, heater, bulb, laptop, microwave, soldering iron, vacuum, washing machine, water kettle \\
             11          & SynD             & 2020          & Austria           & Synthetic     & 2                  & 180 days        & 21                     & Fridge, dishwasher, electric heater, washing machine, toaster, fan, microwave, iron, hot air gun, router, coffee machine, TV, printer, laptop, lamp, gaming PC, radio, monitor, electric oven, hair dryer, water kettle \\
-            12          & DEDDIAG          & 2021          & Germany           & Real-world    & 15                 & 3.5 years       & 8                      & Coffee machine, dishwasher, dryer, freezer, office desk, refrigerator, tv, washing machine \\ \hline
+            12          & DEDDIAG          & 2021          & Germany           & Real-world    & 15                 & 3.5 years       & 8                      & Coffee machine, dishwasher, dryer, freezer, office desk, refrigerator, tv, washing machine \\ \bottomrule
         \end{tabular}}
-    \caption{Overview of power consumption datasets}
+    \caption{Overview of power consumption datasets}%
     \label{tab:datasets_overview}
 \end{table}
 
@@ -140,11 +140,11 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
     \centering
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{llccll}
-            \hline
-            \multirow{2}{*}{\textbf{\#}} & \multirow{2}{*}{\textbf{Dataset}} & \multicolumn{2}{c}{\textbf{Resolution}} & \multirow{2}{*}{\textbf{Features}} & \multirow{2}{*}{\textbf{Applications}}                          \\ \cline{3-4} &  & \textbf{Aggregate} & \textbf{Appliance} &  & \\ \hline
+            \toprule
+            \multirow{2}{*}{\textbf{\#}} & \multirow{2}{*}{\textbf{Dataset}} & \multicolumn{2}{c}{\textbf{Resolution}} & \multirow{2}{*}{\textbf{Features}} & \multirow{2}{*}{\textbf{Applications}}                          \\ \cline{3-4} &  & \textbf{Aggregate} & \textbf{Appliance} &  & \\ \midrule
             1                   & REDD                     & 15 kHz                         & 0.5 Hz, 1 Hz              & I, V, P                       & A1, A2, A4, A5         \\
             2                   & HES                      & 2 min or 10 min                & 2 min or 10 min           & I, V, P, T                    & A1, A6                 \\
-            3                   & Tracebase                &                                & 1-8 s                      & P, Np                         & A1, A6                 \\
+            3                   & Tracebase                &                                & 1--8 s                      & P, Np                         & A1, A6                 \\
             4                   & Smart*                   & 1 Hz                           & 1 Hz                      & I, V, P, f, S                 & A1, A2, A3, A4, A5, A6 \\
             5                   & IHEPCDS                  & 1 min                          & 1 min                     & I, V, P, Q                    & A1, A6                 \\
             6                   & GREEND                   & 1 Hz                           & 1 Hz                      & P                             & A1, A2, A3, A4, A5, A6 \\
@@ -153,8 +153,8 @@ The \acrlong{deddiag}\footnote{\url{https://doi.org/10.6084/m9.figshare.13615073
             9                   & EMBED                    & 12 kHz                         & 1 Hz                      & I, V, P, Q                    & A1, A2, A4, A5         \\
             10                  & PLAID                    &                                & 30 kHz                    & I, V                          & A1, A2, A4             \\
             11                  & SynD                     & 5 Hz                           & 5 Hz                      & P                             & A1, A2, A4, A5         \\
-            12                  & DEDDIAG                  & 1 Hz                           & 1 Hz                      & P                             & A1, A2, A4, A5, A6     \\ \hline
+            12                  & DEDDIAG                  & 1 Hz                           & 1 Hz                      & P                             & A1, A2, A4, A5, A6     \\ \bottomrule
         \end{tabular}}
-    \caption[Comparison of power consumption datasets in terms of features, resolution, and applications]{Comparison of power consumption datasets in terms of features, resolution, and applications. The features reported are current (I), voltage (V), active power (P), reactive power (Q), apparent power (S), normalized power (Np), frequency (f), power factor (pf), and Temperature (T)}
+    \caption[Comparison of power consumption datasets in terms of features, resolution, and applications]{Comparison of power consumption datasets in terms of features, resolution, and applications. The features reported are current (I), voltage (V), active power (P), reactive power (Q), apparent power (S), normalized power (Np), frequency (f), power factor (pf), and Temperature (T)}%
     \label{tab:datasets_applications}
 \end{table}
