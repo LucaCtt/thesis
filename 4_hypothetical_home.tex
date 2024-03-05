@@ -179,7 +179,7 @@ An autoencoder is a type of neural network capable of learning to compress the i
 
 \subsection{One-dimensional Convolutional Layers}
 
-One-dimensional (1-D) convolutional layers are neural network layers commonly used to process sequential data, such as text, speech, audio, or time series. They learn temporal dependencies and meaningful features from the input data by applying 1-D convolutions~\parencite{kiranyaz1DConvolutionalNeural2021}. A convolution is a mathematical operation that slides a filter or \textit{kernel} over the input and computes the dot product between the filter and the input at each position~\parencite{rudinFunctionalAnalysis1991}. 1-D convolutional layers are composed of multiple filters that have the purpose of selecting the most salient features from the input sequence received from the previous layer. The greater the number of filters, the larger the amount of features that can be potentially learned~\parencite{castangiaClusteringApplianceOperation2023}. This is important to extract the most significant features of activations while removing noise. Each filter performs the computation in Equation~\eqref{equ:convolution}, where \(n\) is the filter's size, \(x_i\) are the inputs, \(w_i\) are the filter's weights, \(b\) is a bias term, and \(f\) is the activation function.
+One-dimensional (1-D) convolutional layers are neural network layers commonly used to process sequential data, such as text, speech, audio, or time series. They learn temporal dependencies and meaningful features from the input data by applying 1-D convolutions~\parencite{kiranyaz1DConvolutionalNeural2021}. A convolution is a mathematical operation that slides a filter or \textit{kernel} over the input and computes the dot product between the filter and the input at each position~\parencite{rudinFunctionalAnalysis1991}. 1-D convolutional layers are composed of multiple filters that have the purpose of selecting the most salient features from the input sequence received from the previous layer. They are effective in extracting the most significant features of activations while removing noise. The greater the number of filters, the larger the amount of features that can be potentially learned~\parencite{castangiaClusteringApplianceOperation2023}. Each filter performs the computation in Equation~\eqref{equ:convolution}, where \(n\) is the filter's size, \(x_i\) are the inputs, \(w_i\) are the filter's weights, \(b\) is a bias term, and \(f\) is the activation function.
 \begin{equation}\label{equ:convolution}
   \tilde{y} = f(\sum_{i=1}^{n}{w_i x_i} + b)
 \end{equation}
@@ -281,37 +281,37 @@ Second, the duration of each operation mode is estimated by calculating the aver
 
 \begin{table}[hbt]
   \centering
-  \resizebox{.38\textwidth}{!}{%
-    \begin{tblr}{lcc}
+  \resizebox{.41\textwidth}{!}{%
+    \begin{tabular}{lcc}
       \toprule
       \textbf{Appliance type}             & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \midrule
       \SetCell[r=2]{l}{Radio}             & 1                        & 80                    \\
-                                          & 37                       & 4435                  \\ \hline[dashed]
+                                          & 37                       & 4435                  \\ \midrule
       \SetCell[r=4]{l}{Dishwasher}        & 136                      & 2359                  \\
                                           & 12                       & 240                   \\
                                           & 54                       & 3025                  \\
-                                          & 41                       & 459                   \\ \hline[dashed]
+                                          & 41                       & 459                   \\ \midrule
       \SetCell[r=2]{l}{Fridge w/ freezer} & 208                      & 6304                  \\
-                                          & 7                        & 37                    \\ \hline[dashed]
+                                          & 7                        & 37                    \\ \midrule
       \SetCell[r=2]{l}{Television}        & 18                       & 2514                  \\
-                                          & 110                      & 1833                  \\ \hline[dashed]
+                                          & 110                      & 1833                  \\ \midrule
       \SetCell[r=2]{l}{Microwave}         & 42                       & 302                   \\
-                                          & 1265                     & 1433                  \\ \hline[dashed]
+                                          & 1265                     & 1433                  \\ \midrule
       \SetCell[r=2]{l}{Lamp}              & 2                        & 309                   \\
-                                          & 19                       & 587                   \\ \hline[dashed]
+                                          & 19                       & 587                   \\ \midrule
       \SetCell[r=4]{l}{Washing machine}   & 82                       & 1176                  \\
                                           & 118                      & 1486                  \\
                                           & 1281                     & 1309                  \\
-                                          & 1783                     & 1511                  \\ \hline[dashed]
+                                          & 1783                     & 1511                  \\ \midrule
       \SetCell[r=2]{l}{Desktop}           & 4                        & 1159                  \\
-                                          & 41                       & 12412                 \\ \hline[dashed]
+                                          & 41                       & 12412                 \\ \midrule
       \SetCell[r=3]{l}{Boiler}            & 33                       & 300                   \\
                                           & 57                       & 525                   \\
-                                          & 101                      & 2187                  \\ \hline[dashed]
+                                          & 101                      & 2187                  \\ \midrule
       \SetCell[r=3]{l}{AC}                & 71                       & 199                   \\
                                           & 336                      & 3337                  \\
                                           & 656                      & 30176                 \\ \bottomrule
-    \end{tblr}%
+    \end{tabular}%
   }
   \caption[Preliminary results of operation modes identification]{Preliminary results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances}%
   \label{tab:preliminary_identification_results}
@@ -329,44 +329,44 @@ Therefore, for the washing machine, dishwasher, and microwave, the operation mod
 
 \begin{table}
   \centering
-  \resizebox{.6\textwidth}{!}{%
-    \begin{tblr}{llcc}
+  \resizebox{.65\textwidth}{!}{%
+    \begin{tabular}{llcc}
       \toprule
       \textbf{Appliance type}           & \textbf{Mode name} & \textbf{Consumption (W)} & \textbf{Duration (s)} \\ \midrule
       \SetCell[r=2]{l}{Radio}           & Stand-by           & 1                        & \(\infty \)              \\
-                                        & On                 & 37                       & 4435                  \\ \hline[dashed]
+                                        & On                 & 37                       & 4435                  \\ \midrule
       \SetCell[r=6]{l}{Dishwasher}      & Intensive          & 1400                     & 10380                 \\
                                         & Daily              & 810                      & 10260                 \\
                                         & Eco                & 700                      & 6660                  \\
                                         & Express            & 350                      & 1680                  \\
                                         & Delicate           & 800                      & 7080                  \\
-                                        & Pre-wash           & 10                       & 660                   \\ \hline[dashed]
-      Fridge w/ freezer                 & On                 & 208                      & 6304                  \\ \hline[dashed]
+                                        & Pre-wash           & 10                       & 660                   \\ \midrule
+      Fridge w/ freezer                 & On                 & 208                      & 6304                  \\ \midrule
       \SetCell[r=2]{l}{Television}      & Stand-by           & 18                       & 2514                  \\
-                                        & On                 & 110                      & 1833                  \\ \hline[dashed]
+                                        & On                 & 110                      & 1833                  \\ \midrule
       \SetCell[r=7]{l}{Microwave}       & Stand-by           & 5                        & \(\infty \)              \\
                                         & Microwave          & 750                      & 300                   \\
                                         & Crisp              & 500                      & 300                   \\
                                         & Grill              & 500                      & 300                   \\
                                         & Grill+microwave    & 500                      & 300                   \\
                                         & Steam              & 350                      & 300                   \\
-                                        & Jet defrost        & 160                      & 300                   \\ \hline[dashed]
-      Lamp                              & On                 & 19                       & 587                   \\ \hline[dashed]
+                                        & Jet defrost        & 160                      & 300                   \\ \midrule
+      Lamp                              & On                 & 19                       & 587                   \\ \midrule
       \SetCell[r=7]{l}{Washing machine} & Cotton 90°         & 2000                     & 8700                  \\
                                         & Cotton 60 ECO         & 950                      & 7680                  \\
                                         & Cotton 60°         & 1200                     & 7200                  \\
                                         & Cotton 30°         & 550                      & 6900                  \\
                                         & Synthetic 30°      & 900                      & 5400                  \\
                                         & Delicate 30°       & 500                      & 3600                  \\
-                                        & Wool               & 450                      & 3300                  \\ \hline[dashed]
+                                        & Wool               & 450                      & 3300                  \\ \midrule
       \SetCell[r=2]{l}{Desktop}         & Suspended          & 4                        & \(\infty \)              \\
-                                        & On                 & 41                       & 12412                 \\ \hline[dashed]
+                                        & On                 & 41                       & 12412                 \\ \midrule
       \SetCell[r=3]{l}{Boiler}          & Holiday            & 33                       & 300                   \\
                                         & Comfort            & 57                       & 525                   \\
-                                        & Auto               & 101                      & 2187                  \\ \hline[dashed]
+                                        & Auto               & 101                      & 2187                  \\ \midrule
       \SetCell[r=2]{l}{AC}              & Cool               & 336                      & 3337                  \\
                                         & Heat               & 656                      & 30176                 \\ \bottomrule
-    \end{tblr}%
+    \end{tabular}%
   }
   \caption[Results of operation modes identification]{Results of operation modes identification. The \textit{off} mode is not reported, as it is assumed to have 0W consumption and indeterminate duration for all appliances}%
   \label{tab:identification_results}

@@ -12,9 +12,9 @@ The code for the \acrshort{dt} implementation is available with an MIT license o
 
 \section{REST API}
 
-An \acrfull{api} is a software interface that defines how different applications or components can communicate and exchange data. It can be seen as a contract that specifies the format and content of the requests and responses between an information provider and an information user~\parencite{redhatinc.WhatRESTAPI2020}.
+An \acrshort{api} is a software interface that defines how different applications or components can communicate and exchange data. It can be seen as a contract that specifies the format and content of the requests and responses between an information provider and an information user~\parencite{redhatinc.WhatRESTAPI2020}.
 
-\acrfull{rest} is an architectural style for designing distributed hypermedia systems that use the HTTP protocol to enable scalable web services. It was first proposed by Roy Fielding in his doctoral dissertation~\parencite{fieldingArchitecturalStylesDesign2000}. The core idea of \acrshort{rest} is to model the system as a collection of resources, which are uniquely identified by URIs and can be accessed and modified using a predefined set of operations~\parencite{framlingProductAgentsHandling2003}.
+\acrshort{rest} is an architectural style for designing distributed hypermedia systems that use the HTTP protocol to enable scalable web services. It was first proposed by Roy Fielding in his doctoral dissertation~\parencite{fieldingArchitecturalStylesDesign2000}. The core idea of \acrshort{rest} is to model the system as a collection of resources, which are uniquely identified by URIs and can be accessed and modified using a predefined set of operations~\parencite{framlingProductAgentsHandling2003}.
 
 For an \acrshort{api} to be considered \acrshort{rest}ful, it must have the following characteristics~\parencite{redhatinc.WhatRESTAPI2020,fieldingArchitecturalStylesDesign2000}:
 \begin{itemize}
@@ -44,24 +44,24 @@ Table~\ref{tab:rest_api_endpoints} lists all the endpoints of the \acrshort{dt} 
 \begin{table}
     \centering
     \resizebox{\textwidth}{!}{%
-        \begin{tblr}{ll>{\raggedright}p{.18\textwidth}p{.18\textwidth}lp{.5\textwidth}}
+        \begin{tabular}{ll>{\raggedright}p{.18\textwidth}p{.18\textwidth}lp{.5\textwidth}}
             \toprule
-            \textbf{Endpoint}                    & \textbf{Method} & \textbf{Path parameters}             & \textbf{Query Parameters}        & \textbf{Body parameters}     & \textbf{Description} \\ \midrule
-            /& GET    & &                         &                     & Displays the \acrshort{api} documentation using Swagger UI.\@                                           \\ \hline[dashed]
+            \textbf{Endpoint}                    & \textbf{Method} & \textbf{Path parameters}             & \textbf{Query parameters}        & \textbf{Body parameters}     & \textbf{Description} \\ \midrule
+            /& GET    & &                         &                     & Displays the \acrshort{api} documentation using Swagger UI.\@                                           \\ \midrule
             /consumption                & GET    & Date and time               &                         &                     & Returns a list of energy consumption values of all appliances at the given date and time.                                           \\
             /consumption                & GET    & Appliance id, date and time &                         &                     & Returns the energy consumption value of the given appliance at the given date and time.                                             \\
             /consumption/total          & GET    &                             & List of dates and times &                     & Returns the list of total energy consumption of all appliances at the given dates and times.                                        \\
-            /consumption/total          & GET    & Date and time               &                         &                     & Returns the total energy consumption of all appliances at the given date and time.\@                                                  \\ \hline[dashed]
-            /appliance                  & GET    &                             &                         &                     & Returns the list of all appliances                                                                                                  \\
-            /appliance                  & GET    & Appliance id                &                         &                     & Returns a specific appliance                                                                                                        \\ \hline[dashed]
+            /consumption/total          & GET    & Date and time               &                         &                     & Returns the total energy consumption of all appliances at the given date and time.\@                                                  \\ \midrule
+            /appliance                  & GET    &                             &                         &                     & Returns the list of all appliances.                                                                                                  \\
+            /appliance                  & GET    & Appliance id                &                         &                     & Returns a specific appliance.\@                                                                                                        \\ \midrule
             /routine                    & GET    &                             &                         &                     & Returns the list of all routines                                                                                                    \\
-            /routine                    & GET    & Routine id                  &                         &                     & Returns a specific routine                                                                                                          \\ \hline[dashed]
-            /simulate                   & POST   &                             &                         & Routine to simulate & Simulates the addition of a routine and returns a list of recommendations and errors (if any)                                       \\
-            /simulate/consumption       & POST   & Date and time               &                         & Routine to simulate & Simulates the addition of a routine and returns a list of energy consumption values of all appliances at the given date and time    \\
-            /simulate/consumption       & POST   & Appliance id, date and time &                         & Routine to simulate & Simulates the addition of a routine and returns the energy consumption value of the given appliance at the given date and time      \\
-            /simulate/consumption/total & POST   & Date and time               &                         & Routine to simulate & Simulates the addition of a routine and returns the list of total energy consumption of all appliances at the given dates and times \\
-            /simulate/consumption/total & POST   &                             & List of dates and times & Routine to simulate & Simulates the addition of a routine and returns the total energy consumption of all appliances at the given date and time           \\ \bottomrule
-        \end{tblr}%
+            /routine                    & GET    & Routine id                  &                         &                     & Returns a specific routine                                                                                                          \\ \midrule
+            /simulate                   & POST   &                             &                         & Routine to simulate & Simulates the addition of a routine and returns a list of recommendations and errors (if any).                                       \\
+            /simulate/consumption       & POST   & Date and time               &                         & Routine to simulate & Simulates the addition of a routine and returns a list of energy consumption values of all appliances at the given date and time.    \\
+            /simulate/consumption       & POST   & Appliance id, date and time &                         & Routine to simulate & Simulates the addition of a routine and returns the energy consumption value of the given appliance at the given date and time.      \\
+            /simulate/consumption/total & POST   & Date and time               &                         & Routine to simulate & Simulates the addition of a routine and returns the list of total energy consumption of all appliances at the given dates and times. \\
+            /simulate/consumption/total & POST   &                             & List of dates and times & Routine to simulate & Simulates the addition of a routine and returns the total energy consumption of all appliances at the given date and time.\@           \\ \bottomrule
+        \end{tabular}%
     }
     \caption{Endpoints of the \acrshort{dt}'s REST API}%
     \label{tab:rest_api_endpoints}
@@ -73,7 +73,7 @@ Table~\ref{tab:rest_api_endpoints} lists all the endpoints of the \acrshort{dt} 
 
 \input{code/api_response_shape}
 
-The \acrshort{api} returns responses in a standardized format, as shown in Code Sample~\ref{code:api_response_shape}. The format includes a \textit{value} field for single-value responses, or a \textit{values} field for multi-value responses. The format may also include an \textit{error} field, which contains a \textit{message} field with an error description, and a \textit{context} field with additional error details.
+The \acrshort{api} returns responses in a standardized format, as shown in Code Sample~\ref{code:api_response_shape}. The format includes a \texttt{value} field for single-value responses, or a \texttt{values} field for multi-value responses. The format may also include an \texttt{error} field, which contains a \texttt{message} field with an error description, and a \texttt{context} field with additional error details.
 
 \input{code/api_response_consumption}
 
@@ -121,13 +121,13 @@ The appliances in the hypothetical home and the routines defined by the end user
 \begin{itemize}
     \item \texttt{id}: a unique integer identifier for the appliance;
     \item \texttt{device}: the appliance type, such as \textit{dishwasher};
-    \item \texttt{manufacturer} (optional): the appliance manufacturer, such as \textit{Whirlpool};
+    \item \texttt{manufacturer} (optional): the appliance manufacturer, e.g.\ \textit{Whirlpool};
     \item \texttt{model} (optional): the appliance model, such as \textit{ADF 555 IX};
     \item \texttt{location}: the room where the appliance is located, such as the \textit{kitchen};
     \item \texttt{modes}: the list of operation modes available for the appliance. Each appliance has at least an \textit{off} mode, which consumes no power. Each mode has the following information:
     \begin{itemize}
         \item \texttt{id}: a unique integer identifier for the mode;
-        \item \texttt{name}: the mode name, such as \textit{intensive};
+        \item \texttt{name}: the mode name, e.g.\ \textit{intensive};
         \item \texttt{power\_consumption}: the average power consumption of the appliance in the mode, in Watts; 
         \item \texttt{default\_duration} (optional): the default duration of the mode in seconds, which is used if the user does not specify a duration in the routine. If not specified, the mode is assumed to be running until the end of the day.
     \end{itemize}
@@ -218,8 +218,8 @@ The application is built using the React\footnote{\url{https://react.dev/}} fram
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/frontend/responsive.png}
-    \caption{Display of the website on an iPad Air device}%
+    \includegraphics[width=0.9\textwidth]{images/frontend/responsive.png}
+    \caption{Display of the frontend application on an iPad Air device}%
     \label{fig:frontend_responsive}
 \end{figure}
 
@@ -263,44 +263,44 @@ The simulate section, depicted in Figure~\ref{fig:frontend_simulate}, allows the
     \label{fig:frontend_simulate}
 \end{figure}
 
-The ``No Conflict'' tab, shown in Figure~\ref{fig:frontend_simulate}, displays the details of the ``Warm up home in the morning'' routine, which activates the air conditioning and the boiler at 7:00. By clicking on the ``Simulate routine addition'' button, the user can send a \texttt{POST} request to the \texttt{/simulate} endpoint of the \acrshort{api}, and see the result of the simulation in Figure~\ref{fig:frontend_no_conflict_result}. The simulation indicates that the routine is accepted without any conflicts. A graph, which uses the data from the \texttt{/simulate/consumption/total} endpoint of the \acrshort{api}, compares the power consumption with and without the simulated routine. A recommendation to change the start time of the routine to a more optimal one is also provided, along with the projected savings over 30 days.
+The ``No Conflict'' tab, shown in Figure~\ref{fig:frontend_simulate}, displays the details of the \textit{Warm up home in the morning} routine, which activates the air conditioning and the boiler at 7:00. By clicking on the ``Simulate routine addition'' button, the user can send a \texttt{POST} request to the \texttt{/simulate} endpoint of the \acrshort{api}, and see the result of the simulation in Figure~\ref{fig:frontend_no_conflict_result}. The simulation indicates that the routine is accepted without any conflicts. A graph, which uses the data from the \texttt{/simulate/consumption/total} endpoint of the \acrshort{api}, compares the power consumption with and without the simulated routine. A recommendation to change the start time of the routine to a more optimal one is also provided, along with the projected savings over 30 days.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/no_conflict_result.png}
-    \caption{Results of simulating the ``Warm up home in the morning'' routine}%
+    \caption{Results of simulating the \textit{Warm up home in the morning} routine}%
     \label{fig:frontend_no_conflict_result}
 \end{figure}
 
-The ``Party time'' routine, shown in Figure~\ref{fig:frontend_max_power_exceeded}, is designed to test the scenario where the power consumption surpasses the maximum limit of 3kW. It turns on the air conditioning, the dishwasher, the washing machine, and the microwave at 10:00. The simulation results are displayed in Figure~\ref{fig:frontend_max_power_exceeded_result}. The simulation shows an error, due to conflict C2, and suggests disabling either the simulated routine or an existing routine that consumes a lot of power. No recommendation to change the start time of the routine is given, because the routine would always exceed the maximum limit regardless of the time.
+The \textit{Party time} routine, shown in Figure~\ref{fig:frontend_max_power_exceeded}, is designed to test the scenario where the power consumption surpasses the maximum limit of 3kW. It turns on the air conditioning, the dishwasher, the washing machine, and the microwave at 10:00. The simulation results are displayed in Figure~\ref{fig:frontend_max_power_exceeded_result}. The simulation shows an error, due to conflict C2, and suggests disabling either the simulated routine or an existing routine that consumes a lot of power. No recommendation to change the start time of the routine is given, because the routine would always exceed the maximum limit regardless of the time.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/max_power_exceeded.png}
-    \caption{Details of the ``Party time'' routine, which causes the power consumption to exceed the maximum limit}%
+    \caption{Details of the \textit{Party time} routine, which causes the power consumption to exceed the maximum limit}%
     \label{fig:frontend_max_power_exceeded}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/max_power_exceeded_result.png}
-    \caption{Result of simulating the ``Party time'' routine}%
+    \caption{Results of simulating the \textit{Party time} routine}%
     \label{fig:frontend_max_power_exceeded_result}
 \end{figure}
 
-The ``Heavy-duty wash'' routine, shown in Figure~\ref{fig:frontend_conflicting_modes}, is designed to show a conflict with an existing routine. It sets the washing machine to the \textit{cotton 90} mode at 14:00. However, another routine already sets the washing machine to the \textit{cotton 30} mode at the same time. The simulation results are shown in Figure~\ref{fig:frontend_conflicting_modes_result}. The simulation reports an error, due to conflict C1, and offers two recommendations to disable either of the conflicting routines. A recommendation to change the start time of the routine to a more suitable one is also given, along with the projected savings.
+The \textit{Heavy-duty wash} routine, shown in Figure~\ref{fig:frontend_conflicting_modes}, is designed to show a conflict with an existing routine. It sets the washing machine to the \textit{cotton 90} mode at 14:00. However, another routine already sets the washing machine to the \textit{cotton 30} mode at the same time. The simulation results are shown in Figure~\ref{fig:frontend_conflicting_modes_result}. The simulation reports an error, due to conflict C1, and offers two recommendations to disable either of the conflicting routines. A recommendation to change the start time of the routine to a more suitable one is also given, along with the projected savings.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/conflicting_modes.png}
-    \caption{Details of the ``Heavy duty wash'' routine, which causes a conflict with an existing routine}%
+    \caption{Details of the \textit{Heavy duty wash} routine, which causes a conflict with an existing routine}%
     \label{fig:frontend_conflicting_modes}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/conflicting_modes_result.png}
-    \caption{Result of simulating the ``Heavy duty wash'' routine}%
+    \caption{Results of simulating the \textit{Heavy duty wash} routine}%
     \label{fig:frontend_conflicting_modes_result}
 \end{figure}
 
@@ -311,7 +311,7 @@ Figure~\ref{fig:frontend_appliances} shows the appliances section of the fronten
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/appliances.png}
-    \caption{Simulate Section of the Frontend Application}%
+    \caption{Appliances section of the frontend application}%
     \label{fig:frontend_appliances}
 \end{figure}
 
@@ -322,6 +322,6 @@ Figure~\ref{fig:frontend_routines} shows the routines section of the frontend ap
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{images/frontend/routines.png}
-    \caption{Showcase Frontend Application}%
+    \caption{Routines section of the frontend application}%
     \label{fig:frontend_routines}
 \end{figure}
