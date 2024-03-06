@@ -29,7 +29,7 @@ To address RQ1, two types of datasets related to the Smart Home subject that adh
 \end{itemize}
 From the objectives for this thesis introduced in Chapter~\ref{ch:introduction}, it is clear that the datasets of utmost interest for this thesis, addressing RQ2, are power consumption datasets. In particular, datasets that contain appliance-level data are the most appropriate.\@ \acrshort{adl} datasets are not relevant for this thesis, and as such for the remainder of this chapter only power consumption datasets will be considered.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=.9\textwidth]{images/taxonomy_power_consumption.jpg}
     \caption[Applications of power consumption datasets]{Applications of power consumption datasets. From~\textcite{himeurBuildingPowerConsumption2020}, page 5, CC-BY 4.0 license}%
@@ -44,7 +44,7 @@ In~\parencite{himeurBuildingPowerConsumption2020}, various applications for powe
 
     \item \textit{Occupancy Detection}. By analyzing power consumption profiles and environmental factors like temperature and humidity, it is possible to detect individuals' presence in specific building areas. The assessment of occupancy detection requires datasets with either aggregated or disaggregated power draws, along with a description of consumption scenarios. In particular, the presence of user-driven devices is needed to assume presence in the environment~\parencite{monacchiGREENDEnergyConsumption2014}.
 
-    \item \textit{Preference Detection}, Analyzing energy usage profiles helps evaluate the preferences of occupants.\@ \acrshort{ml} techniques interpret habits related to appliance usage of individuals, understanding their consumption priorities or creating contexts that satisfy their well-being. Datasets for preference detection require appliance-level power consumption.
+    \item \textit{Preference Detection}. Analyzing energy usage profiles helps evaluate the preferences of occupants.\@ \acrshort{ml} techniques interpret habits related to appliance usage of individuals, understanding their consumption priorities or creating contexts that satisfy their well-being. Datasets for preference detection require appliance-level power consumption.
 
     \item \textit{Energy Disaggregation}. Also named \acrfull{nilm} in the literature, it consists in separating overall power consumption into signals for individual electrical devices.\@ \acrshort{ml} models can be used to learn the particular power consumption patterns of single devices, to discern the contribution of single appliances to the total energy use when only the aggregate consumption data is given. Datasets for energy disaggregation need to include both aggregated and appliance-level consumption fingerprints, to compare the results obtained from disaggregation models with individual patterns of devices.
 

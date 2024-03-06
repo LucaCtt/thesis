@@ -1,3 +1,4 @@
+\pdfminorversion=7
 \documentclass[a4paper,12pt]{report} % Foglio a4, font size 12, solo fronte
 \usepackage[utf8]{inputenc} % Codifica caratteri
 \usepackage[includehead, inner=3.0cm, outer=2.0cm, top=2.5cm, bottom=2.5cm]{geometry}
@@ -57,11 +58,21 @@
 \usepackage[hidelinks]{hyperref} % Per inserire URL
 \usepackage{xurl} % Per spezzare URL a capo
 
+% PDF metadata
+\usepackage{hyperxmp}
+\hypersetup{%
+pdftitle={Study and Development of a Digital Twin for the Simulation of User-Created Automations in a Green Smart Home},
+pdfauthor={Luca Cotti},
+pdflang={en-US},
+pdfstartview=}
+
 % Liste
 \usepackage{enumitem} % Per inserire liste
 \usepackage{siunitx} % Per usare \setitemize
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % itemize più compatto
 \setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % enumerate più compatto
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % enumerate più compatto
+\setdescription{topsep=0pt} % enumerate più compatto
 
 % Captions
 \usepackage[font=small,textformat=period]{caption}
@@ -118,33 +129,33 @@
 % Info documento
 \title{Study and Development of a Digital Twin for the Simulation of User-Created Automations in a Green Smart Home}
 \author{Luca Cotti}
-\date{October 2023}
+\date{March 2024}
 
 \input{acronyms}
 
 \begin{document}
-    \newgeometry{lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm} % Bordi pagina come da formato tesi Unibs
-    \input{title} % Frontespizio
-    \restoregeometry
-    \hyphenpenalty=2000 % Meno probabile lo spezzamento delle parole a capo
+\newgeometry{lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm} % Bordi pagina come da formato tesi Unibs
+\input{title} % Frontespizio
+\restoregeometry
+\hyphenpenalty=2000 % Meno probabile lo spezzamento delle parole a capo
 
-    \pagenumbering{Roman}
-    \tableofcontents
-    \printglossary[type=\acronymtype,title=List of Acronyms, nogroupskip]
-    \listoffigures
-    \listoftables
-    \lstlistoflistings
+\pagenumbering{Roman}
+\tableofcontents
+\printglossary[type=\acronymtype,title=List of Acronyms, nogroupskip]
+\listoffigures
+\listoftables
+\lstlistoflistings
 
-    \cleardoublepage
-    \pagenumbering{arabic}
-    \input{1_introduction}
-    \input{2_background}
-    \input{3_datasets}
-    \input{4_hypothetical_home}
-    \input{5_digital_twin}
-    \input{7_conclusions}
-    
-    \printbibliography[heading=bibintoc] % Bibliografia nell'indice
-    
-    \input{acknowledgments}
+\cleardoublepage
+\pagenumbering{arabic}
+\input{1_introduction}
+\input{2_background}
+\input{3_datasets}
+\input{4_hypothetical_home}
+\input{5_digital_twin}
+\input{7_conclusions}
+
+\printbibliography[heading=bibintoc] % Bibliografia nell'indice
+
+\input{acknowledgments}
 \end{document}
